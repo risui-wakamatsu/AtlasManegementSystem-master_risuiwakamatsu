@@ -54,28 +54,36 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function posts(){
+    public function posts()
+    {
         return $this->hasMany('App\Models\Posts\Post');
     }
 
-    public function calendars(){
+    public function calendars()
+    {
         return $this->belongsToMany('App\Models\Calendars\Calendar', 'calendar_users', 'user_id', 'calendar_id')->withPivot('user_id', 'id');
     }
 
-    public function reserveSettings(){
+    public function reserveSettings()
+    {
         return $this->belongsToMany('App\Models\Calendars\ReserveSettings', 'reserve_setting_users', 'user_id', 'reserve_setting_id')->withPivot('id');
     }
 
-    public function subjects(){
-        return ;// リレーションの定義
+    public function subjects()
+    { // リレーションの定義
+        return $this->belongsToMany(Subject::class, 'subject_users', 'user_id', 'subject_id');
+        //(使用するモデル,使用するテーブル,リレーション元のidを入れた中間テーブルのカラム,リレーション先のidを入れた中間テーブルのカラム)
+
     }
 
     // いいねしているかどうか
-    public function is_Like($post_id){
+    public function is_Like($post_id)
+    {
         return Like::where('like_user_id', Auth::id())->where('like_post_id', $post_id)->first(['likes.id']);
     }
 
-    public function likePostId(){
+    public function likePostId()
+    {
         return Like::where('like_user_id', Auth::id());
     }
 }
