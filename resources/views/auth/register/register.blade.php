@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,6 +13,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&family=Oswald:wght@200&display=swap" rel="stylesheet">
   <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
 </head>
+
 <body>
   <form action="{{ route('registerPost') }}" method="POST">
     <div class="w-100 vh-100 d-flex" style="align-items:center; justify-content:center;">
@@ -23,12 +25,18 @@
               <div class="border-bottom border-primary" style="width:140px;">
                 <input type="text" style="width:140px;" class="border-0 over_name" name="over_name">
               </div>
+              @error('over_name')
+              <strong class="error_message">{{ $message }}</strong> <!--姓のエラーメッセージ-->
+              @enderror
             </div>
             <div class="" style="width:140px">
               <label class=" d-block m-0" style="font-size:13px">名</label>
               <div class="border-bottom border-primary" style="width:140px;">
                 <input type="text" style="width:140px;" class="border-0 under_name" name="under_name">
               </div>
+              @error('under_name')
+              <strong class="error_message">{{ $message }}</strong> <!--名のエラーメッセージ-->
+              @enderror
             </div>
           </div>
           <div class="d-flex mt-3" style="justify-content:space-between">
@@ -37,12 +45,19 @@
               <div class="border-bottom border-primary" style="width:140px;">
                 <input type="text" style="width:140px;" class="border-0 over_name_kana" name="over_name_kana">
               </div>
+              @error('over_name_kana')
+              <strong class="error_message">{{ $message }}</strong> <!--セイのエラーメッセージ-->
+              @enderror
             </div>
             <div class="" style="width:140px">
               <label class="d-block m-0" style="font-size:13px">メイ</label>
               <div class="border-bottom border-primary" style="width:140px;">
                 <input type="text" style="width:140px;" class="border-0 under_name_kana" name="under_name_kana">
               </div>
+              @error('under_name_kana')
+              <strong class="error_message">{{ $message }}</strong> <!--メイのエラーメッセージ-->
+              @enderror
+
             </div>
           </div>
           <div class="mt-3">
@@ -50,6 +65,9 @@
             <div class="border-bottom border-primary">
               <input type="mail" class="w-100 border-0 mail_address" name="mail_address">
             </div>
+            @error('mail_address')
+            <strong class="error_message">{{ $message }}</strong> <!--メールアドレスのエラーメッセージ-->
+            @enderror
           </div>
         </div>
         <div class="mt-3">
@@ -60,6 +78,9 @@
           <input type="radio" name="sex" class="sex" value="3">
           <label style="font-size:13px">その他</label>
         </div>
+        @error('sex')
+        <strong class="error_message">{{ $message }}</strong> <!--性別のエラーメッセージ-->
+        @enderror
         <div class="mt-3">
           <label class="d-block m-0 aa" style="font-size:13px">生年月日</label>
           <select class="old_year" name="old_year">
@@ -144,6 +165,9 @@
           </select>
           <label style="font-size:13px">月</label>
         </div>
+        @error('birth')
+        <strong class="error_message">{{ $message }}</strong> <!--生年月日のエラーメッセージ-->
+        @enderror
         <div class="mt-3">
           <label class="d-block m-0" style="font-size:13px">役職</label>
           <input type="radio" name="role" class="admin_role role" value="1">
@@ -164,17 +188,26 @@
           </div>
           @endforeach
         </div>
+        @error('role')
+        <strong class="error_message">{{ $message }}</strong> <!--役職のエラーメッセージ-->
+        @enderror
         <div class="mt-3">
           <label class="d-block m-0" style="font-size:13px">パスワード</label>
           <div class="border-bottom border-primary">
             <input type="password" class="border-0 w-100 password" name="password">
           </div>
+          @error('password')
+          <strong class="error_message">{{ $message }}</strong> <!--パスワードのエラーメッセージ-->
+          @enderror
         </div>
         <div class="mt-3">
           <label class="d-block m-0" style="font-size:13px">確認用パスワード</label>
           <div class="border-bottom border-primary">
-            <input type="password" class="border-0 w-100 password_confirmation" name="password">
+            <input type="password" class="border-0 w-100 password_confirmation" name="password_confirmation"> <!--確認用のため「_confirmation」を追加-->
           </div>
+          @error('password_confirmation')
+          <strong class="error_message">{{ $message }}</strong> <!--確認用パスワードのエラーメッセージ-->
+          @enderror
         </div>
         <div class="mt-5 text-right">
           <input type="submit" class="btn btn-primary register_btn" disabled value="新規登録" onclick="return confirm('登録してよろしいですか？')">
@@ -190,4 +223,5 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script src="{{ asset('js/register.js') }}" rel="stylesheet"></script>
 </body>
+
 </html>

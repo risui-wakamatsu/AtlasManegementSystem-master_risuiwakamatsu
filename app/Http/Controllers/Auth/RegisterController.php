@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\Users\Subject;
+use App\Http\Requests\RegisterRequest; //クラスをuse宣言
+
 use DB;
 
 use App\Models\Users\Subjects;
@@ -58,9 +60,9 @@ class RegisterController extends Controller
         return view('auth.register.register', compact('subjects'));
     }
 
-    public function registerPost(Request $request)
+    public function registerPost(RegisterRequest $request) //登録が行われるだけのメソッド
     {
-        DB::beginTransaction();
+        DB::beginTransaction(); //トランザクション処理、データベース構造内でデータを修正するクエリ
         try {
             $old_year = $request->old_year;
             $old_month = $request->old_month;
@@ -80,12 +82,12 @@ class RegisterController extends Controller
                 'role' => $request->role,
                 'password' => bcrypt($request->password)
             ]);
-            $user = User::findOrFail($user_get->id); //Usersテーブルから$user_getで登録された内容から$idを取り出す
-            $user->subjects()->attach($subjects);
-            DB::commit();
+            $user = User::findOrFail($user_get->id); //findOrFail→引数に当するものを取り出して表示するメソッド、Usersテーブルから$user_getで登録された内容から$idを取り出す
+            $user->subjects()->attach($subjects); //登録から取り出したidと->subjectsテーブルをリレーション(Userモデルのsubjects())→リクエストで飛んできた$subjectと紐付け(attach)する
+            DB::commit(); //全ての処理が計画通りに行った時に使用
             return view('auth.login.login');
-        } catch (\Exception $e) {
-            DB::rollback();
+        } catch (\Exception $e) { //例外が起きた時↓
+            DB::rollback(); //一部でも失敗があれば変更または操作を取り消す
             return redirect()->route('loginView');
         }
     }
