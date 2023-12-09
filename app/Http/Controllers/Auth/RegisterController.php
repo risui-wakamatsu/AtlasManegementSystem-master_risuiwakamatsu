@@ -77,9 +77,9 @@ class RegisterController extends Controller
                 'over_name_kana' => $request->over_name_kana,
                 'under_name_kana' => $request->under_name_kana,
                 'mail_address' => $request->mail_address,
-                'sex' => $request->sex,
+                'sex' => $request->sex([1, 2, 3]), //データが送られる時にvalueの数字で認識する
                 'birth_day' => $birth_day,
-                'role' => $request->role,
+                'role' => $request->role([1, 2, 3, 4]), //データが送られる時にvalueの数字で認識する
                 'password' => bcrypt($request->password)
             ]);
             $user = User::findOrFail($user_get->id); //findOrFail→引数に当するものを取り出して表示するメソッド、Usersテーブルから$user_getで登録された内容から$idを取り出す

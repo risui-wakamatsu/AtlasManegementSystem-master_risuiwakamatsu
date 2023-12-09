@@ -35,9 +35,9 @@ class RegisterRequest extends FormRequest
             'mail_address' => ['required', 'string', 'email', 'max:100', Rule::unique('users')->ignore(Auth::id())],
             'sex' => 'required|', //必須
             'birth_day' => 'required|date|after_or_equal:2000-1-1', //生年月日(old_year,old_month,old_day)をまとめたもの
-            'old_year' => 'required', //必須
-            'old_month' => 'required', //必須
-            'old_day' => 'required', //必須
+            'old_year' => 'required_with:old_month,old_day', //必須
+            'old_month' => 'required_with:old_year,old_day', //必須
+            'old_day' => 'required_with:old_year,old_month', //必須
             'role' => 'required', //必須
             'password' => 'required|min:8|max:30|confirmed', //必須|8文字以上30文字以下|確認用と同じかどうか
             'password_confirmation' => 'required|min:8|max:30',
@@ -48,7 +48,7 @@ class RegisterRequest extends FormRequest
     {
         $birthDate = implode('-', $this->only(['old_year', 'old_month', 'old_day']));
         $this->merge([
-            'birth' => $birthDate,
+            'birth_day' => $birthDate,
         ]);
         return parent::getValidatorInstance();
     }
@@ -83,11 +83,11 @@ class RegisterRequest extends FormRequest
             'birth_day.date' => '※生年月日は正しい日付を入力してください。',
             'birth_day.after_or_equal' => '※2000年1月1日以降の生年月日を入力してください。',
             'old_year.required' => '※年は必須項目です。',
-            'old_year.after_or_equal' => '※2000年以降の正しい年を入力してください。',
+            //'old_year.after_or_equal' => '※2000年以降の正しい年を入力してください。',
             'old_month.required' => '※月は必須項目です。',
-            'old_month.after_or_equal' => '※2000年1月1日以降の正しい日付を入力してください。',
+            //'old_month.after_or_equal' => '※2000年1月1日以降の正しい日付を入力してください。',
             'old_day.required' => '※日は必須項目です。',
-            'old_day.after_or_equal' => '※2000年1月1日以降の正しい日付を入力してください。',
+            //'old_day.after_or_equal' => '※2000年1月1日以降の正しい日付を入力してください。',
 
             'role.required' => '※役職は必須項目です。',
 

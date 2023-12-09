@@ -165,7 +165,7 @@
           </select>
           <label style="font-size:13px">月</label>
         </div>
-        @error('birth')
+        @error('birth_day')
         <strong class="error_message">{{ $message }}</strong> <!--生年月日のエラーメッセージ-->
         @enderror
         <div class="mt-3">
