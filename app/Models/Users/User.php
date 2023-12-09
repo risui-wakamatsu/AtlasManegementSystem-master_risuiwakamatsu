@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Users\Subjects; //追加
 
 use App\Models\Posts\Like;
 use Auth;
@@ -71,7 +72,7 @@ class User extends Authenticatable
 
     public function subjects()
     { // リレーションの定義
-        return $this->belongsToMany(Subject::class, 'subject_users', 'user_id', 'subject_id');
+        return $this->belongsToMany(Subjects::class, 'subject_users', 'user_id', 'subject_id');
         //(使用するモデル,使用するテーブル,リレーション元のidを入れた中間テーブルのカラム,リレーション先のidを入れた中間テーブルのカラム)
 
     }

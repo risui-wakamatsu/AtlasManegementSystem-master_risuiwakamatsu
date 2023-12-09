@@ -33,12 +33,12 @@ class RegisterRequest extends FormRequest
             'over_name_kana' => 'required|string|max:30|regex:/\A[ァ-ヴー]+\z/u', //必須|文字列|30文字以下|regex:→〇〇だけど:全角カタカナのみ
             'under_name_kana' => 'required|string|max:30|regex:/\A[ァ-ヴー]+\z/u', //必須|文字列|30文字以下|regex:→〇〇だけど:全角カタカナのみ
             'mail_address' => ['required', 'string', 'email', 'max:100', Rule::unique('users')->ignore(Auth::id())],
-            'sex' => 'required|', //必須
+            'sex' => ['required', Rule::in(1, 2, 3)], //必須|許可する値を指定
             'birth_day' => 'required|date|after_or_equal:2000-1-1', //生年月日(old_year,old_month,old_day)をまとめたもの
             'old_year' => 'required_with:old_month,old_day', //必須
             'old_month' => 'required_with:old_year,old_day', //必須
             'old_day' => 'required_with:old_year,old_month', //必須
-            'role' => 'required', //必須
+            'role' => ['required', Rule::in(1, 2, 3, 4)], //必須|許可する値を指定
             'password' => 'required|min:8|max:30|confirmed', //必須|8文字以上30文字以下|確認用と同じかどうか
             'password_confirmation' => 'required|min:8|max:30',
         ];
