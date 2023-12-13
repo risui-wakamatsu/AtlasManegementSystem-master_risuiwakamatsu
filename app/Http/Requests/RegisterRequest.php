@@ -41,7 +41,7 @@ class RegisterRequest extends FormRequest
             'role' => ['required', Rule::in(1, 2, 3, 4)], //必須|許可する値を指定、valueで飛んでくるデータを許可するルール
             'password' => 'required|min:8|max:30|confirmed', //必須|8文字以上30文字以下|確認用と同じかどうか
             //'password_confirmation' => 'required|min:8|max:30',
-            //→passwordのconfirmedをしている項目だから必須も文字数制限もいらねい
+            //confirmedのためにある項目だから不要
         ];
     }
 
