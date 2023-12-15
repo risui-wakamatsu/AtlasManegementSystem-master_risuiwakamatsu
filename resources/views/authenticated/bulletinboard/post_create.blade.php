@@ -32,7 +32,7 @@
     </div>
     <form action="{{ route('post.create') }}" method="post" id="postCreate">{{ csrf_field() }}</form>
   </div>
-  @can('admin')
+  @can('admin') <!--管理者のみに見える内容-->
   <div class="w-25 ml-auto mr-auto">
     <div class="category_area mt-5 p-5">
       <div class="">

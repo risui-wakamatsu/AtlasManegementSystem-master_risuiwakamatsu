@@ -23,6 +23,8 @@ class RegisterRequest extends FormRequest
      *
      * @return array
      */
+
+    //ユーザー登録画面のバリデーション
     public function rules() //バリデーションルールを連想配列で記述
     {
         return [
