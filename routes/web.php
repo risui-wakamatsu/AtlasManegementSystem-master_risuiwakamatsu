@@ -22,7 +22,7 @@ Route::group(['middleware' => ['guest']], function () {
 });
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::namespace('Authenticated')->group(function () { //ログインユーザー
+    Route::namespace('Authenticated')->group(function () { //ログインしているユーザー
         Route::namespace('Top')->group(function () {
             Route::get('/logout', 'TopsController@logout');
             Route::get('/top', 'TopsController@show')->name('top.show');
@@ -56,7 +56,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('/unlike/post/{id}', 'PostsController@postUnLike')->name('post.unlike');
         });
         Route::namespace('Users')->group(function () {
-            Route::get('/show/users', 'UsersController@showUsers')->name('user.show');
+            Route::get('/show/users', 'UsersController@showUsers')->name('user.show'); //ユーザー検索画面
             Route::get('/user/profile/{id}', 'UsersController@userProfile')->name('user.profile');
             Route::post('/user/profile/edit', 'UsersController@userEdit')->name('user.edit');
         });

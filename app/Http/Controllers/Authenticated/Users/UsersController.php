@@ -10,30 +10,38 @@ use App\Models\Users\User;
 use App\Models\Users\Subjects;
 use App\Searchs\DisplayUsers;
 use App\Searchs\SearchResultFactories;
+use Illuminate\Support\Facades\Auth;
+
 
 class UsersController extends Controller
 {
 
-    public function showUsers(Request $request){
+    public function showUsers(Request $request)
+    {
+        //選択科目の表示、フォロー機能と似ている？？？
         $keyword = $request->keyword;
         $category = $request->category;
         $updown = $request->updown;
         $gender = $request->sex;
         $role = $request->role;
-        $subjects = null;// ここで検索時の科目を受け取る
+        //$subjects = null;// ここで検索時の科目を受け取る
+        $subjects = Auth::User()->subjects()->get(); //User.phpのsubjectsメソッドを取得
+        $subjects_id = Auth::User()->subjects()->pluck('subject_id'); //リレーション先のsubjectのidを取得
         $userFactory = new SearchResultFactories();
         $users = $userFactory->initializeUsers($keyword, $category, $updown, $gender, $role, $subjects);
-        $subjects = Subjects::all();
+        //$subjects = Subjects::all();
         return view('authenticated.users.search', compact('users', 'subjects'));
     }
 
-    public function userProfile($id){
+    public function userProfile($id)
+    {
         $user = User::with('subjects')->findOrFail($id);
         $subject_lists = Subjects::all();
         return view('authenticated.users.profile', compact('user', 'subject_lists'));
     }
 
-    public function userEdit(Request $request){
+    public function userEdit(Request $request)
+    {
         $user = User::findOrFail($request->user_id);
         $user->subjects()->sync($request->subjects);
         return redirect()->route('user.profile', ['id' => $request->user_id]);

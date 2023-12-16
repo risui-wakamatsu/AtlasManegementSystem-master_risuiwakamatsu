@@ -45,7 +45,7 @@
       </div>
       <div>
         @if($user->role == 4)
-        <span>選択科目 :</span>
+        <span>選択科目 :</span><span></span><!--subject_usersテーブルからデータを抽出し反映させる-->
         @endif
       </div>
     </div>

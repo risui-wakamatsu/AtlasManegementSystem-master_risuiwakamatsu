@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Providers;
+
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -24,7 +25,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-        Gate::define('admin', function($user){
+        Gate::define('admin', function ($user) {
+            //認可できるユーザーを判断する記述
+            //第一引数にはアクセス制限の名前(ルーティングでグループ化している名前)
             return ($user->role == "1" || $user->role == "2" || $user->role == "3");
         });
     }

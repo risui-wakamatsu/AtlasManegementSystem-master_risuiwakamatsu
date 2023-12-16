@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,8 +23,10 @@
       <p><a href="{{ route('top.show') }}">トップ</a></p>
       <p><a href="/logout">ログアウト</a></p>
       <p><a href="{{ route('calendar.general.show',['user_id' => Auth::id()]) }}">スクール予約</a></p>
+      @can('admin') <!--管理者(講師アカウント)のみに見える内容-->
       <p><a href="{{ route('calendar.admin.show',['user_id' => Auth::id()]) }}">スクール予約確認</a></p>
       <p><a href="{{ route('calendar.admin.setting',['user_id' => Auth::id()]) }}">スクール枠登録</a></p>
+      @endcan
       <p><a href="{{ route('post.show') }}">掲示板</a></p>
       <p><a href="{{ route('user.show') }}">ユーザー検索</a></p>
       @show
@@ -38,4 +41,5 @@
   <script src="{{ asset('js/user_search.js') }}" rel="stylesheet"></script>
   <script src="{{ asset('js/calendar.js') }}" rel="stylesheet"></script>
 </body>
+
 </html>

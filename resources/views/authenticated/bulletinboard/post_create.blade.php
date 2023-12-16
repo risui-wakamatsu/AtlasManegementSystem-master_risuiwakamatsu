@@ -1,3 +1,5 @@
+<!--投稿画面-->
+
 @extends('layouts.sidebar')
 
 @section('content')
@@ -32,7 +34,7 @@
     </div>
     <form action="{{ route('post.create') }}" method="post" id="postCreate">{{ csrf_field() }}</form>
   </div>
-  @can('admin') <!--管理者のみに見える内容-->
+  @can('admin') <!--管理者(講師アカウント)のみに見える内容-->
   <div class="w-25 ml-auto mr-auto">
     <div class="category_area mt-5 p-5">
       <div class="">
@@ -41,9 +43,17 @@
         <input type="submit" value="追加" class="w-100 btn btn-primary p-0" form="mainCategoryRequest">
       </div>
       <!-- サブカテゴリー追加 -->
-      <form action="{{ route('main.category.create') }}" method="post" id="mainCategoryRequest">{{ csrf_field() }}</form>
+      <div class="category_area mt-5 p-5">
+        <div class="">
+          <p class="m-0">サブカテゴリー</p>
+          <!--メインカテゴリーを選択するプルダウンをここに作る-->
+          <input type="text" class="w-100" name="main_category_name" form="mainCategoryRequest"> <!--サブカテゴリーの内容に変更する-->
+          <input type="submit" value="追加" class="w-100 btn btn-primary p-0" form="mainCategoryRequest"> <!--サブカテゴリーの内容に変更する-->
+        </div>
+
+        <form action="{{ route('main.category.create') }}" method="post" id="mainCategoryRequest">{{ csrf_field() }}</form>
+      </div>
     </div>
+    @endcan
   </div>
-  @endcan
-</div>
-@endsection
+  @endsection
