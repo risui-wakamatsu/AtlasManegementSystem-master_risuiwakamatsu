@@ -53,6 +53,7 @@ class PostsController extends Controller
         return view('authenticated.bulletinboard.post_create', compact('main_categories'));
     }
 
+    //投稿登録
     public function postCreate(PostFormRequest $request)
     {
         $post = Post::create([
@@ -77,10 +78,24 @@ class PostsController extends Controller
         Post::findOrFail($id)->delete();
         return redirect()->route('post.show');
     }
+
+    //メインカテゴリー登録の追加
     public function mainCategoryCreate(Request $request)
     {
+        //$main_categories = MainCategory::get();
         MainCategory::create(['main_category' => $request->main_category_name]);
-        return redirect()->route('post.input');
+        return redirect()->route('post.input'); //, [$main_category_id] , compact('main_categories')
+    }
+
+    //サブカテゴリー登録の追加
+    public function subCategoryCreate(Request $request)
+    {
+        //$main_category = MainCategory::all();
+        SubCategory::create([
+            'sub_category' => $request->sub_category_name,
+            'main_category_id' => $request->main_category_id
+        ]);
+        return redirect()->route('post.input'); //, [$main_category_id]
     }
 
     public function commentCreate(Request $request)

@@ -94,17 +94,27 @@
           </div>
           <div class="selected_engineer">
             <label>選択科目</label>
+            <div>
+              <span>国語</span><input type="checkbox" name="" value="" form="userSearchRequest">
+            </div>
+            <div>
+              <span>数学</span><input type="checkbox" name="" value="" form="userSearchRequest">
+            </div>
+            <div>
+              <span>英語</span><input type="checkbox" name="" value="" form="userSearchRequest">
+            </div>
           </div>
         </div>
       </div>
-      <div>
-        <input type="reset" value="リセット" form="userSearchRequest">
-      </div>
-      <div>
-        <input type="submit" name="search_btn" value="検索" form="userSearchRequest">
-      </div>
     </div>
-    <form action="{{ route('user.show') }}" method="get" id="userSearchRequest"></form>
+    <div>
+      <input type="reset" value="リセット" form="userSearchRequest">
+    </div>
+    <div>
+      <input type="submit" name="search_btn" value="検索" form="userSearchRequest">
+    </div>
   </div>
+  <form action="{{ route('user.show') }}" method="get" id="userSearchRequest"></form>
+</div>
 </div>
 @endsection
