@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Authenticated\BulletinBoard;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Categories\MainCategory;
-use App\Models\Categories\SubCategory;
+use App\Models\Categories\MainCategory; //メインカテゴリー
+use App\Models\Categories\SubCategory; //サブカテゴリー
 use App\Models\Posts\Post;
 use App\Models\Posts\PostComment;
 use App\Models\Posts\Like;
@@ -90,12 +90,11 @@ class PostsController extends Controller
     //サブカテゴリー登録の追加
     public function subCategoryCreate(Request $request)
     {
-        //$main_category = MainCategory::all();
         SubCategory::create([
-            'sub_category' => $request->sub_category_name,
-            'main_category_id' => $request->main_category_id
+            'main_category_id' => $request->main_category_id,
+            'sub_category' => $request->sub_category_name
         ]);
-        return redirect()->route('post.input'); //, [$main_category_id]
+        return redirect()->route('post.input', ['id' => $request->main_category_id]); //, [$main_category_id]
     }
 
     public function commentCreate(Request $request)
