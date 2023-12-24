@@ -25,8 +25,8 @@ class PostFormRequest extends FormRequest
     {
         return [
             'post_category_id' => 'required',
-            'post_title' => 'required|string|min:100',
-            'post_body' => 'required|string|min:5000',
+            'post_title' => 'required|string|max:100',
+            'post_body' => 'required|string|max:5000',
         ];
     }
 
@@ -35,11 +35,11 @@ class PostFormRequest extends FormRequest
         return [
             'post_category_id.required' => 'カテゴリーは必須です。',
             'post_title.required' => 'タイトルは必須項目です。',
-            'post_title.min' => 'タイトルは100文字以内で入力してください。',
-            //'post_title.max' => 'タイトルは50文字以内で入力してください。',
+            //'post_title.min' => 'タイトルは100文字以内で入力してください。',
+            'post_title.max' => 'タイトルは100文字以内で入力してください。',
             'post_body.required' => '内容は必須項目です。',
-            'post_body.min' => '内容は5000文字以内で入力してください。',
-            //'post_body.max' => '最大文字数は500文字です。',
+            //'post_body.min' => '内容は5000文字以内で入力してください。',
+            'post_body.max' => '最大文字数は5000文字です。',
         ];
     }
 }

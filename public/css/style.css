@@ -171,6 +171,11 @@ li {
   justify-content: space-between;
 }
 
+/*編集・削除ボタン*/
+.detail_btn {
+  text-align: end;
+}
+
 .edit-modal-open {
   cursor: pointer;
 }

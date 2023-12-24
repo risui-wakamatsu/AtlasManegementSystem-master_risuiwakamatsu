@@ -7,10 +7,12 @@
         <div class="detail_inner_head">
           <div>
           </div>
-          <div>
+          @if(Auth::user()->id==$post->user_id) <!--idとuser_idがあっている時(自分の投稿)のみ編集と削除の機能が使える-->
+          <div class="detail_btn">
             <span class="edit-modal-open" post_title="{{ $post->post_title }}" post_body="{{ $post->post }}" post_id="{{ $post->id }}">編集</span>
-            <a href="{{ route('post.delete', ['id' => $post->id]) }}">削除</a>
+            <a href="{{ route('post.delete', ['id' => $post->id]) }}" onclick="return confirm('この投稿を削除してよろしいでしょうか？')">削除</a>
           </div>
+          @endif
         </div>
 
         <div class="contributor d-flex">
@@ -22,7 +24,13 @@
           <span class="ml-5">{{ $post->created_at }}</span>
         </div>
         <div class="detsail_post_title">{{ $post->post_title }}</div>
+        @error('post_title')
+        <strong class="error_message">{{ $message }}</strong> <!--投稿タイトルのエラーメッセージ-->
+        @enderror
         <div class="mt-3 detsail_post">{{ $post->post }}</div>
+        @error('post_body')
+        <strong class="error_message">{{ $message }}</strong> <!--投稿内容のエラーメッセージ-->
+        @enderror
       </div>
       <div class="p-3">
         <div class="comment_container">

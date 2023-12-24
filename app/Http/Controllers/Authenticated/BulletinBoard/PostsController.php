@@ -11,6 +11,8 @@ use App\Models\Posts\PostComment;
 use App\Models\Posts\Like;
 use App\Models\Users\User;
 use App\Http\Requests\BulletinBoard\PostFormRequest;
+use App\Http\Requests\CategoryRequest; //カテゴリーのバリデーション
+use App\Http\Requests\EditRequest; //投稿編集のバリデーション
 use Auth;
 
 class PostsController extends Controller
@@ -50,7 +52,8 @@ class PostsController extends Controller
     public function postInput()
     {
         $main_categories = MainCategory::get();
-        return view('authenticated.bulletinboard.post_create', compact('main_categories'));
+        $sub_categories = SubCategory::get();
+        return view('authenticated.bulletinboard.post_create', compact('main_categories', 'sub_categories'));
     }
 
     //投稿登録
@@ -64,7 +67,8 @@ class PostsController extends Controller
         return redirect()->route('post.show');
     }
 
-    public function postEdit(Request $request)
+    //投稿編集
+    public function postEdit(EditRequest $request)
     {
         Post::where('id', $request->post_id)->update([
             'post_title' => $request->post_title,
@@ -73,6 +77,7 @@ class PostsController extends Controller
         return redirect()->route('post.detail', ['id' => $request->post_id]);
     }
 
+    //投稿削除
     public function postDelete($id)
     {
         Post::findOrFail($id)->delete();
@@ -80,18 +85,18 @@ class PostsController extends Controller
     }
 
     //メインカテゴリー登録の追加
-    public function mainCategoryCreate(Request $request)
+    public function mainCategoryCreate(CategoryRequest $request)
     {
-        //$main_categories = MainCategory::get();
+        $main_categories = MainCategory::get();
         MainCategory::create(['main_category' => $request->main_category_name]);
         return redirect()->route('post.input'); //, [$main_category_id] , compact('main_categories')
     }
 
     //サブカテゴリー登録の追加
-    public function subCategoryCreate(Request $request)
+    public function subCategoryCreate(CategoryRequest $request)
     {
         SubCategory::create([
-            'main_category_id' => $request->main_category_id,
+            'main_category_id' => $request->main_category_id, //bladeでmain_category_idの値(value)がmain_categoryのidのため保存されるのは数字(id)になる
             'sub_category' => $request->sub_category_name
         ]);
         return redirect()->route('post.input', ['id' => $request->main_category_id]); //, [$main_category_id]

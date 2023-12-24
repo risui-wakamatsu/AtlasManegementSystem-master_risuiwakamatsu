@@ -3,6 +3,7 @@
 @extends('layouts.sidebar')
 
 @section('content')
+<!--投稿フォーム-->
 <div class="post_create_container d-flex">
   <div class="post_create_area border w-50 m-5 p-5">
     <form action="{{ route('post.create') }}" method="post" id="postCreate">
@@ -11,9 +12,11 @@
         <p class="mb-0">カテゴリー</p>
         <select class="w-100" form="postCreate" name="post_category_id">
           @foreach($main_categories as $main_category)
-          <optgroup label="{{ $main_category->main_category }}"></optgroup>
+          <optgroup label="{{ $main_category->main_category }}"></optgroup> <!--optgroupはselect要素の選択グループを作成する、選択できない-->
           <!-- サブカテゴリー表示 -->
-          </optgroup>
+          @foreach($sub_categories as $sub_category)
+          <option value="{{$sub_category->id}}">{{$sub_category->sub_category}}</option>
+          @endforeach
           @endforeach
         </select>
       </div>
@@ -36,13 +39,17 @@
       </div>
     </form>
   </div>
+
+  <!--カテゴリー追加-->
   @can('admin') <!--管理者(講師アカウント)のみに見える内容-->
   <div class="w-25 ml-auto mr-auto">
     <div class="category_area mt-5 p-5">
       <form action="{{ route('main.category.create') }}" method="post" id="mainCategoryRequest">
         {{ csrf_field() }}
-
         <div class="">
+          @if($errors->first('main_category_name'))
+          <span class="error_message">{{ $errors->first('main_category_name') }}</span>
+          @endif
           <p class="m-0">メインカテゴリー</p>
           <input type="text" class="w-100" name="main_category_name" form="mainCategoryRequest">
           <input type="submit" value="追加" class="w-100 btn btn-primary p-0" form="mainCategoryRequest">
@@ -53,11 +60,17 @@
       {{ csrf_field() }}
       <div class="">
         <p class="m-0">サブカテゴリー</p>
+        @if($errors->first('main_category_id'))
+        <span class="error_message">{{ $errors->first('main_category_id') }}</span>
+        @endif
+        @if($errors->first('sub_category_name'))
+        <span class="error_message">{{ $errors->first('sub_category_name') }}</span>
+        @endif
         <!--メインカテゴリーを選択するプルダウンをここに作る-->
         <select name="main_category_id" class="w-100" form="subCategoryRequest">
           <option>---</option>
           @foreach($main_categories as $main_category)
-          <option value="{{$main_category->id}}"> <!--セレクトボックスの値をmain_categoryのidにする-->
+          <option value="{{$main_category->id}}"> <!--sub_categoryのmain_category_idカラムに保存されるidを取得するためセレクトボックスの値をmain_categoryのidにする-->
             {{$main_category->main_category}}
           </option>
           @endforeach
