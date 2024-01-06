@@ -4,6 +4,7 @@ $(function () {
     $('.category_num' + category_id).slideToggle();
   });
 
+  //いいねボタンを押す
   $(document).on('click', '.like_btn', function (e) {
     e.preventDefault();
     $(this).addClass('un_like_btn');
@@ -26,6 +27,7 @@ $(function () {
     });
   });
 
+  //いいねボタンを解除
   $(document).on('click', '.un_like_btn', function (e) {
     e.preventDefault();
     $(this).removeClass('un_like_btn');

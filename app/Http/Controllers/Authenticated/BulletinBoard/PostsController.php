@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Authenticated\BulletinBoard;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Illuminate\Http\Request; //通常のリクエストインスタンスの読み込み
 use App\Models\Categories\MainCategory; //メインカテゴリー
 use App\Models\Categories\SubCategory; //サブカテゴリー
 use App\Models\Posts\Post;
@@ -11,7 +11,8 @@ use App\Models\Posts\PostComment;
 use App\Models\Posts\Like;
 use App\Models\Users\User;
 use App\Http\Requests\BulletinBoard\PostFormRequest;
-use App\Http\Requests\CategoryRequest; //カテゴリーのバリデーション
+use App\Http\Requests\MainCategoryRequest; //メインカテゴリーのバリデーション
+use App\Http\Requests\SubCategoryRequest; //サブカテゴリーのバリデーション
 use App\Http\Requests\EditRequest; //投稿編集のバリデーション
 use Auth;
 
@@ -19,6 +20,7 @@ class PostsController extends Controller
 {
     public function show(Request $request)
     {
+        //投稿一覧
         $posts = Post::with('user', 'postComments')->get();
         $categories = MainCategory::get();
         $like = new Like;
@@ -59,7 +61,7 @@ class PostsController extends Controller
     //投稿登録
     public function postCreate(PostFormRequest $request)
     {
-        $post = Post::create([
+        Post::create([
             'user_id' => Auth::id(),
             'post_title' => $request->post_title,
             'post' => $request->post_body
@@ -85,21 +87,21 @@ class PostsController extends Controller
     }
 
     //メインカテゴリー登録の追加
-    public function mainCategoryCreate(CategoryRequest $request)
+    public function mainCategoryCreate(MainCategoryRequest $request)
     {
-        $main_categories = MainCategory::get();
+        //$main_categories = MainCategory::get();
         MainCategory::create(['main_category' => $request->main_category_name]);
         return redirect()->route('post.input'); //, [$main_category_id] , compact('main_categories')
     }
 
     //サブカテゴリー登録の追加
-    public function subCategoryCreate(CategoryRequest $request)
+    public function subCategoryCreate(SubCategoryRequest $request)
     {
         SubCategory::create([
             'main_category_id' => $request->main_category_id, //bladeでmain_category_idの値(value)がmain_categoryのidのため保存されるのは数字(id)になる
             'sub_category' => $request->sub_category_name
         ]);
-        return redirect()->route('post.input', ['id' => $request->main_category_id]); //, [$main_category_id]
+        return redirect()->route('post.input'); //, [$main_category_id]
     }
 
     public function commentCreate(Request $request)
@@ -127,12 +129,13 @@ class PostsController extends Controller
         return view('authenticated.bulletinboard.post_like', compact('posts', 'like'));
     }
 
+    //投稿にいいねをした時の処理
     public function postLike(Request $request)
     {
         $user_id = Auth::id();
         $post_id = $request->post_id;
 
-        $like = new Like;
+        $like = new Like; //Likeモデルをインスタンス化
 
         $like->like_user_id = $user_id;
         $like->like_post_id = $post_id;
@@ -141,6 +144,7 @@ class PostsController extends Controller
         return response()->json();
     }
 
+    //投稿へのいいねを解除する処理
     public function postUnLike(Request $request)
     {
         $user_id = Auth::id();

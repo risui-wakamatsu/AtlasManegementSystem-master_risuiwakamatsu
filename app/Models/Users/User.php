@@ -79,6 +79,11 @@ class User extends Authenticatable
     }
 
     // いいねしているかどうか
+    public function likes()
+    {
+        return $this->hasMany('App\Models\Posts\Like');
+    }
+
     public function is_Like($post_id)
     {
         return Like::where('like_user_id', Auth::id())->where('like_post_id', $post_id)->first(['likes.id']);

@@ -44,6 +44,7 @@
   @can('admin') <!--管理者(講師アカウント)のみに見える内容-->
   <div class="w-25 ml-auto mr-auto">
     <div class="category_area mt-5 p-5">
+      <!--メインカテゴリー追加-->
       <form action="{{ route('main.category.create') }}" method="post" id="mainCategoryRequest">
         {{ csrf_field() }}
         <div class="">
@@ -61,7 +62,7 @@
       <div class="">
         <p class="m-0">サブカテゴリー</p>
         @if($errors->first('main_category_id'))
-        <span class="error_message">{{ $errors->first('main_category_id') }}</span>
+        <span class="error_message">{{ $errors->first('sub_category_id') }}</span>
         @endif
         @if($errors->first('sub_category_name'))
         <span class="error_message">{{ $errors->first('sub_category_name') }}</span>
@@ -74,8 +75,8 @@
             {{$main_category->main_category}}
           </option>
           @endforeach
-          <input type="text" class="w-100" name="sub_category_name" form="subCategoryRequest"> <!--サブカテゴリーの内容に変更する-->
-          <input type="submit" value="追加" class="w-100 btn btn-primary p-0" form="subCategoryRequest"> <!--サブカテゴリーの内容に変更する-->
+          <input type="text" class="w-100" name="sub_category_name" form="subCategoryRequest">
+          <input type="submit" value="追加" class="w-100 btn btn-primary p-0" form="subCategoryRequest">
         </select>
     </form>
   </div>

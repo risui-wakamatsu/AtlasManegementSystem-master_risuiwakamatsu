@@ -1,3 +1,5 @@
+<!--投稿詳細画面-->
+
 @extends('layouts.sidebar')
 @section('content')
 <div class="vh-100 d-flex">
