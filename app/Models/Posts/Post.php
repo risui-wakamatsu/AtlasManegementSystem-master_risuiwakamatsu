@@ -3,6 +3,7 @@
 namespace App\Models\Posts;
 
 use Illuminate\Database\Eloquent\Model;
+use Psy\TabCompletion\Matcher\FunctionsMatcher;
 
 class Post extends Model
 {
@@ -15,20 +16,31 @@ class Post extends Model
         'post',
     ];
 
-    public function user(){
+    public function user() //usersテーブルとリレーション
+    {
         return $this->belongsTo('App\Models\Users\User');
     }
 
-    public function postComments(){
+    //コメントとリレーション
+    public function postComments()
+    {
         return $this->hasMany('App\Models\Posts\PostComment');
     }
 
-    public function subCategories(){
+    public function subCategories()
+    {
         // リレーションの定義
     }
 
-    // コメント数
-    public function commentCounts($post_id){
-        return Post::with('postComments')->find($post_id)->postComments();
+    // コメントをカウントするコード
+    public function commentCounts($post_id)
+    {
+        return Post::with('postComments')->find($post_id)->postComments(); //PostモデルのidとpostCommentsメソッドのリレーション先のpost_idをfind()で返す
+    }
+
+    //いいねリレーション追加
+    public function likes()
+    {
+        return $this->hasMany('App\Models\Posts\Like');
     }
 }

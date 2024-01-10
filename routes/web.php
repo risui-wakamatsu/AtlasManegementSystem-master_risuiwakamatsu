@@ -52,8 +52,8 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('/bulletin_board/edit', 'PostsController@postEdit')->name('post.edit'); //投稿編集画面
             Route::get('/bulletin_board/delete/{id}', 'PostsController@postDelete')->name('post.delete'); //投稿を削除する処理
             Route::post('/comment/create', 'PostsController@commentCreate')->name('comment.create');
-            Route::post('/like/post/{id}', 'PostsController@postLike')->name('post.like');
-            Route::post('/unlike/post/{id}', 'PostsController@postUnLike')->name('post.unlike');
+            Route::post('/like/post/{id}', 'PostsController@postLike')->name('post.like'); //いいねする
+            Route::post('/unlike/post/{id}', 'PostsController@postUnLike')->name('post.unlike'); //いいねをやめる
         });
         Route::namespace('Users')->group(function () {
             Route::get('/show/users', 'UsersController@showUsers')->name('user.show'); //ユーザー検索画面

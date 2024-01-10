@@ -236,6 +236,17 @@ li {
   color: #FFF;
 }
 
+.sub_category_btn {
+  display: inline-block;
+  font-size: 12px;
+  border-radius: 5px;
+  padding: 0 5px;
+  margin: 5px 20px;
+  border: none;
+  background: #999;
+  color: #FFF;
+}
+
 .main_categories span,
 .sub_categories li input {
   list-style: none;
@@ -281,9 +292,4 @@ li {
 
 .subject_inner {
   display: none;
-}
-
-.error_message {
-  color: #FF0000;
-  font-size: 12px;
 }

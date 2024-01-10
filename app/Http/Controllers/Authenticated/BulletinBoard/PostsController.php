@@ -14,6 +14,7 @@ use App\Http\Requests\BulletinBoard\PostFormRequest;
 use App\Http\Requests\MainCategoryRequest; //メインカテゴリーのバリデーション
 use App\Http\Requests\SubCategoryRequest; //サブカテゴリーのバリデーション
 use App\Http\Requests\EditRequest; //投稿編集のバリデーション
+use App\Http\Requests\CommentRequest; //コメントのバリデーション
 use Auth;
 
 class PostsController extends Controller
@@ -23,8 +24,10 @@ class PostsController extends Controller
         //投稿一覧
         $posts = Post::with('user', 'postComments')->get();
         $categories = MainCategory::get();
+        $sub_categories = SubCategory::get();
         $like = new Like;
         $post_comment = new Post;
+        //$post_like = User::withCount('likes')->get(); //userテーブルとlikeテーブルのリレーション　リレーション先からテーブルのデータを取得
         if (!empty($request->keyword)) {
             $posts = Post::with('user', 'postComments')
                 ->where('post_title', 'like', '%' . $request->keyword . '%')
@@ -40,7 +43,7 @@ class PostsController extends Controller
             $posts = Post::with('user', 'postComments')
                 ->where('user_id', Auth::id())->get();
         }
-        return view('authenticated.bulletinboard.posts', compact('posts', 'categories', 'like', 'post_comment'));
+        return view('authenticated.bulletinboard.posts', compact('posts', 'categories', 'sub_categories', 'like', 'post_comment')); //post_like追加 , 'post_like'
     }
 
     //投稿詳細画面
@@ -104,7 +107,7 @@ class PostsController extends Controller
         return redirect()->route('post.input'); //, [$main_category_id]
     }
 
-    public function commentCreate(Request $request)
+    public function commentCreate(CommentRequest $request) //コメント機能
     {
         PostComment::create([
             'post_id' => $request->post_id,
@@ -137,8 +140,8 @@ class PostsController extends Controller
 
         $like = new Like; //Likeモデルをインスタンス化
 
-        $like->like_user_id = $user_id;
-        $like->like_post_id = $post_id;
+        $like->like_user_id = $user_id; //likeテーブルのlike_user_idにログインユーザーのidを代入
+        $like->like_post_id = $post_id; //likeテーブルのlike_post_idにリクエストで送られてきたpost_idを代入
         $like->save();
 
         return response()->json();

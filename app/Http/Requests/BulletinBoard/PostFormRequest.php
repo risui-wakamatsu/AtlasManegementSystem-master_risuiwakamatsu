@@ -33,13 +33,13 @@ class PostFormRequest extends FormRequest
     public function messages()
     {
         return [
-            'post_category_id.required' => 'カテゴリーは必須です。',
-            'post_title.required' => 'タイトルは必須項目です。',
+            'post_category_id.required' => '※カテゴリーは必須です。',
+            'post_title.required' => '※タイトルは必須項目です。',
             //'post_title.min' => 'タイトルは100文字以内で入力してください。',
-            'post_title.max' => 'タイトルは100文字以内で入力してください。',
-            'post_body.required' => '内容は必須項目です。',
+            'post_title.max' => '※タイトルは100文字以内で入力してください。',
+            'post_body.required' => '※内容は必須項目です。',
             //'post_body.min' => '内容は5000文字以内で入力してください。',
-            'post_body.max' => '最大文字数は5000文字です。',
+            'post_body.max' => '※最大文字数は5000文字です。',
         ];
     }
 }

@@ -55,7 +55,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function posts()
+    public function posts() //postsテーブルとリレーション
     {
         return $this->hasMany('App\Models\Posts\Post');
     }
@@ -79,7 +79,7 @@ class User extends Authenticatable
     }
 
     // いいねしているかどうか
-    public function likes()
+    public function likes() //likesテーブルとリレーション
     {
         return $this->hasMany('App\Models\Posts\Like');
     }

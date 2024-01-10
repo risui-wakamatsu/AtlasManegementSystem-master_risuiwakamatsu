@@ -9,18 +9,19 @@
     @foreach($posts as $post)
     <div class="post_area border w-75 m-auto p-3">
       <p><span>{{ $post->user->over_name }}</span><span class="ml-3">{{ $post->user->under_name }}</span>さん</p>
-      <p><a href="{{ route('post.detail', ['id' => $post->id]) }}">{{ $post->post_title }}</a></p>
+      <p><a href="{{ route('post.detail', ['id' => $post->id]) }}">{{ $post->post_title }}</a></p> <!--投稿詳細へ-->
       <div class="post_bottom_area d-flex">
         <div class="d-flex post_status">
           <div class="mr-5">
-            <i class="fa fa-comment"></i><span class="post_comment_counts
-            {{$post->id}}"></span>
+            <!--コメント-->
+            <i class="fa fa-comment"></i><span class="post_comment_counts{{$post->id}}">{{$post->postComments()->count()}}</span>
           </div>
           <div>
+            <!--いいね機能-->
             @if(Auth::user()->is_Like($post->id))
-            <p class="m-0"><i class="fas fa-heart un_like_btn" post_id="{{ $post->id }}"></i><span class="like_counts{{ $post->id }}"></span></p>
+            <p class="m-0"><i class="fas fa-heart un_like_btn" post_id="{{ $post->id }}"></i><span class="like_counts{{ $post->id }}"></span></p> <!--黒ハート post->idがlikeテーブルにある数をカウント-->
             @else
-            <p class="m-0"><i class="fas fa-heart like_btn" post_id="{{ $post->id }}"></i><span class="like_counts{{ $post->id }}"></span></p>
+            <p class="m-0"><i class="fas fa-heart like_btn" post_id="{{ $post->id }}"></i><span class="like_counts{{ $post->id }}"></span></p> <!--赤ハート post->idがlikeテーブルにある数をカウント-->
             @endif
           </div>
         </div>
@@ -40,6 +41,9 @@
       <ul>
         @foreach($categories as $category)
         <li class="main_categories" category_id="{{ $category->id }}"><span>{{ $category->main_category }}<span></li>
+        @endforeach
+        @foreach($sub_categories as $sub_category)
+        <li class="sub_category_btn" sub_category_id="{{$sub_category->id}}">{{$sub_category->sub_category}}</li>
         @endforeach
       </ul>
     </div>
