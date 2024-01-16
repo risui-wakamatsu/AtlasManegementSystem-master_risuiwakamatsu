@@ -78,12 +78,15 @@ class User extends Authenticatable
         //withPivot：アクセスしたいカラムを記述
     }
 
-    // いいねしているかどうか
-    public function likes() //likesテーブルとリレーション
+    //likeテーブルとリレーション
+    public function likes()
     {
-        return $this->hasMany('App\Models\Posts\Like');
+        return $this->hasMany('App\Models\Posts\Like', 'like_user_id'); //命名規則に沿ってない、第二引数以降が必要になる
+        //第二引数：参照先の外部キー(Likeテーブルの外部キーを入力)
+        //第三引数：参照元の内部キー
     }
 
+    // いいねしているかどうか
     public function is_Like($post_id)
     {
         return Like::where('like_user_id', Auth::id())->where('like_post_id', $post_id)->first(['likes.id']);
@@ -91,6 +94,6 @@ class User extends Authenticatable
 
     public function likePostId()
     {
-        return Like::where('like_user_id', Auth::id());
+        return Like::where('like_user_id', Auth::id()); //like_user_idの値がログインユーザーのデータを取得
     }
 }

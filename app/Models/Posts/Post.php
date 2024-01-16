@@ -37,10 +37,4 @@ class Post extends Model
     {
         return Post::with('postComments')->find($post_id)->postComments(); //PostモデルのidとpostCommentsメソッドのリレーション先のpost_idをfind()で返す
     }
-
-    //いいねリレーション追加
-    public function likes()
-    {
-        return $this->hasMany('App\Models\Posts\Like');
-    }
 }

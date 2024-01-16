@@ -19,9 +19,11 @@ $(function () {
       data: {
         post_id: $(this).attr('post_id'),
       },
+      //ajaxが成功した場合
     }).done(function (res) {
       console.log(res);
       $('.like_counts' + post_id).text(countInt + 1);
+      //ajaxが失敗した場合
     }).fail(function (res) {
       console.log('fail');
     });

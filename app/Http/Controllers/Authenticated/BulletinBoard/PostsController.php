@@ -23,6 +23,8 @@ class PostsController extends Controller
     {
         //投稿一覧
         $posts = Post::with('user', 'postComments')->get();
+        //$users = User::withCount('likes')->get();
+        //dd($users);
         $categories = MainCategory::get();
         $sub_categories = SubCategory::get();
         $like = new Like;

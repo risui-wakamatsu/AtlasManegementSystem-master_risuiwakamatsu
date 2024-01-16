@@ -19,9 +19,9 @@
           <div>
             <!--いいね機能-->
             @if(Auth::user()->is_Like($post->id))
-            <p class="m-0"><i class="fas fa-heart un_like_btn" post_id="{{ $post->id }}"></i><span class="like_counts{{ $post->id }}"></span></p> <!--黒ハート post->idがlikeテーブルにある数をカウント-->
+            <p class="m-0"><i class="fas fa-heart un_like_btn" post_id="{{ $post->id }}"></i><span class="like_counts{{ $post->id }}">{{Auth::user()->likes()->count()}}</span></p> <!--黒ハート post->idがlikeテーブルにある数をカウント-->
             @else
-            <p class="m-0"><i class="fas fa-heart like_btn" post_id="{{ $post->id }}"></i><span class="like_counts{{ $post->id }}"></span></p> <!--赤ハート post->idがlikeテーブルにある数をカウント-->
+            <p class="m-0"><i class="fas fa-heart like_btn" post_id="{{ $post->id }}"></i><span class="like_counts{{ $post->id }}">{{Auth::user()->likes()->count()}}</span></p> <!--赤ハート post->idがlikeテーブルにある数をカウント-->
             @endif
           </div>
         </div>
