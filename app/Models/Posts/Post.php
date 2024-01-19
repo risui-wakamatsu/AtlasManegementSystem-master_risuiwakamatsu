@@ -4,6 +4,7 @@ namespace App\Models\Posts;
 
 use Illuminate\Database\Eloquent\Model;
 use Psy\TabCompletion\Matcher\FunctionsMatcher;
+use app\Models\Categories\SubCategories;
 
 class Post extends Model
 {
@@ -29,12 +30,20 @@ class Post extends Model
 
     public function subCategories()
     {
-        // リレーションの定義
+        // リレーションの定義 中間テーブル
+        return $this->belongsToMany(SubCategories::class, 'post_sub_categories', 'post_id', 'sub_category_id');
+        //(使用するモデル,使用するテーブル,リレーション元のidを入れた中間テーブルのカラム,リレーション先のidを入れた中間テーブルのカラム)
     }
 
     // コメントをカウントするコード
     public function commentCounts($post_id)
     {
         return Post::with('postComments')->find($post_id)->postComments(); //PostモデルのidとpostCommentsメソッドのリレーション先のpost_idをfind()で返す
+    }
+
+    //likeテーブルとリレーション
+    public function likes()
+    {
+        return $this->hasMany('App\Models\Posts\Like', 'like_post_id', 'id');
     }
 }

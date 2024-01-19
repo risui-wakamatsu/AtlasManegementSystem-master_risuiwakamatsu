@@ -28,20 +28,26 @@ class PostsController extends Controller
         $categories = MainCategory::get();
         $sub_categories = SubCategory::get();
         $like = new Like;
+        //ddd($like);
+        //$likeCounts = $like->likeCounts;
+        //$post_id = Post::id()->get();
+        //$like_counts = Like::where('like_post_id', $post_id)->get()->count();
         $post_comment = new Post;
         //$post_like = User::withCount('likes')->get(); //userテーブルとlikeテーブルのリレーション　リレーション先からテーブルのデータを取得
         if (!empty($request->keyword)) {
-            $posts = Post::with('user', 'postComments')
-                ->where('post_title', 'like', '%' . $request->keyword . '%')
-                ->orWhere('post', 'like', '%' . $request->keyword . '%')->get();
+            $posts = Post::with('user', 'postComments', 'sub_Categories') //sub_Categories追加
+                ->where('post_title', 'like', '%' . $request->keyword . '%') //リクエストされたname=keywordがPostテーブルのpost_titleと部分一致することが条件
+                ->orWhere('post', 'like', '%' . $request->keyword . '%')->get(); //またはリクエストされたname=keywordがPostテーブルのpostと部分一致することが条件
         } else if ($request->category_word) {
             $sub_category = $request->category_word;
             $posts = Post::with('user', 'postComments')->get();
         } else if ($request->like_posts) {
+            //いいねした投稿を表示
             $likes = Auth::user()->likePostId()->get('like_post_id');
             $posts = Post::with('user', 'postComments')
                 ->whereIn('id', $likes)->get();
         } else if ($request->my_posts) {
+            //自分の投稿を表示
             $posts = Post::with('user', 'postComments')
                 ->where('user_id', Auth::id())->get();
         }
