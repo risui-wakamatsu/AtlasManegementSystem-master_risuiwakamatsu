@@ -55,8 +55,10 @@ li {
   background: #EEE;
 }
 
+/*スクール予約画面　カレンダー背景*/
 .calendar-td {
   min-width: 100px;
+
 }
 
 .day_part {

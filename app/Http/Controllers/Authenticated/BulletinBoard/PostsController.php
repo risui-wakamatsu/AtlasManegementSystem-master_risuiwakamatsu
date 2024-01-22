@@ -29,29 +29,30 @@ class PostsController extends Controller
         $sub_categories = SubCategory::get();
         $like = new Like;
         //ddd($like);
-        //$likeCounts = $like->likeCounts;
-        //$post_id = Post::id()->get();
-        //$like_counts = Like::where('like_post_id', $post_id)->get()->count();
         $post_comment = new Post;
-        //$post_like = User::withCount('likes')->get(); //userテーブルとlikeテーブルのリレーション　リレーション先からテーブルのデータを取得
-        if (!empty($request->keyword)) {
-            $posts = Post::with('user', 'postComments', 'sub_Categories') //sub_Categories追加
+        //$sub_categories_search = SubCategory::with('posts')->get();
+        if (!empty($request->keyword)) { //検索窓で検索
+            $posts = Post::with('user', 'postComments', 'subCategories') //subCategories追加
                 ->where('post_title', 'like', '%' . $request->keyword . '%') //リクエストされたname=keywordがPostテーブルのpost_titleと部分一致することが条件
-                ->orWhere('post', 'like', '%' . $request->keyword . '%')->get(); //またはリクエストされたname=keywordがPostテーブルのpostと部分一致することが条件
-        } else if ($request->category_word) {
+                ->orWhere('post', 'like', '%' . $request->keyword . '%') //またはリクエストされたname=keywordがPostテーブルのpostと部分一致することが条件
+                ->whereHas('subCategories', function ($query) use ($request) {
+                    $query->where('sub_category', '=', $request->keyword);
+                })->get();
+            //->orWhere('sub_category', '=', $request->keyword)
+            //$sub_categories_search = SubCategory::with('posts')
+            //->where('sub_category', '=', $request->keyword)->get();
+        } else if ($request->category_word) { //サブカテゴリーから検索
             $sub_category = $request->category_word;
             $posts = Post::with('user', 'postComments')->get();
-        } else if ($request->like_posts) {
-            //いいねした投稿を表示
+        } else if ($request->like_posts) { //いいねした投稿を表示
             $likes = Auth::user()->likePostId()->get('like_post_id');
             $posts = Post::with('user', 'postComments')
                 ->whereIn('id', $likes)->get();
-        } else if ($request->my_posts) {
-            //自分の投稿を表示
+        } else if ($request->my_posts) { //自分の投稿を表示
             $posts = Post::with('user', 'postComments')
                 ->where('user_id', Auth::id())->get();
         }
-        return view('authenticated.bulletinboard.posts', compact('posts', 'categories', 'sub_categories', 'like', 'post_comment')); //post_like追加 , 'post_like'
+        return view('authenticated.bulletinboard.posts', compact('posts', 'categories', 'sub_categories', 'like', 'post_comment'));
     }
 
     //投稿詳細画面
@@ -72,11 +73,16 @@ class PostsController extends Controller
     //投稿登録
     public function postCreate(PostFormRequest $request)
     {
-        Post::create([
+        $sub_category = $request->post_category_id;
+
+        $post_get = Post::create([
             'user_id' => Auth::id(),
             'post_title' => $request->post_title,
             'post' => $request->post_body
         ]);
+        //中間テーブルに保存する記述する
+        $post = Post::findOrFail($post_get->id); //Postテーブルから$post_getで登録されたidを取得
+        $post->subCategories()->attach($sub_category); //上記で取得できたidとモデルでリレーションしたsubCategoriesとリクエストで飛んできたpost_category_idを紐付け
         return redirect()->route('post.show');
     }
 

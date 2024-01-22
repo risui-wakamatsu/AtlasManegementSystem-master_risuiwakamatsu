@@ -4,7 +4,7 @@ namespace App\Models\Posts;
 
 use Illuminate\Database\Eloquent\Model;
 use Psy\TabCompletion\Matcher\FunctionsMatcher;
-use app\Models\Categories\SubCategories;
+use App\Models\Categories\SubCategory;
 
 class Post extends Model
 {
@@ -31,7 +31,7 @@ class Post extends Model
     public function subCategories()
     {
         // リレーションの定義 中間テーブル
-        return $this->belongsToMany(SubCategories::class, 'post_sub_categories', 'post_id', 'sub_category_id');
+        return $this->belongsToMany(SubCategory::class, 'post_sub_categories', 'post_id', 'sub_category_id');
         //(使用するモデル,使用するテーブル,リレーション元のidを入れた中間テーブルのカラム,リレーション先のidを入れた中間テーブルのカラム)
     }
 

@@ -1,3 +1,5 @@
+<!--ユーザー検索-->
+
 @extends('layouts.sidebar')
 
 @section('content')

@@ -82,6 +82,7 @@ class RegisterController extends Controller
                 //'role' => $request->role([1, 2, 3, 4]), //データが送られる時にvalueの数字で認識する
                 'password' => bcrypt($request->password)
             ]);
+            //↓中間テーブルに保存する記述
             $user = User::findOrFail($user_get->id); //findOrFail→引数に当するものを取り出して表示するメソッド、Usersテーブルから$user_getで登録された内容から$idを取り出す
             $user->subjects()->attach($subjects); //登録から取り出したidと->subjectsテーブルをリレーション(Userモデルのsubjects())→リクエストで飛んできた$subjectと紐付け(attach)する
             DB::commit(); //全ての処理が計画通りに行った時に使用

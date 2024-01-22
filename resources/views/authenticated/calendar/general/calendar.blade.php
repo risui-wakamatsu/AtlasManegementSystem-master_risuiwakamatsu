@@ -1,3 +1,5 @@
+<!--スクール予約画面-->
+
 @extends('layouts.sidebar')
 
 @section('content')
