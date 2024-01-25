@@ -31,7 +31,8 @@ class Post extends Model
     public function subCategories()
     {
         // リレーションの定義 中間テーブル
-        return $this->belongsToMany(SubCategory::class, 'post_sub_categories', 'post_id', 'sub_category_id');
+        return $this->belongsToMany(SubCategory::class, 'post_sub_categories', 'post_id', 'sub_category_id')
+            ->withPivot('sub_category_id');
         //(使用するモデル,使用するテーブル,リレーション元のidを入れた中間テーブルのカラム,リレーション先のidを入れた中間テーブルのカラム)
     }
 

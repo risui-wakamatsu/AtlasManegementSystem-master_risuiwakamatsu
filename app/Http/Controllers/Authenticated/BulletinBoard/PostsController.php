@@ -23,27 +23,28 @@ class PostsController extends Controller
     {
         //投稿一覧
         $posts = Post::with('user', 'postComments')->get();
+        //dd($posts);
         //$users = User::withCount('likes')->get();
-        //dd($users);
         $categories = MainCategory::get();
         $sub_categories = SubCategory::get();
+        //dd($sub_categories);
         $like = new Like;
         //ddd($like);
         $post_comment = new Post;
         //$sub_categories_search = SubCategory::with('posts')->get();
         if (!empty($request->keyword)) { //検索窓で検索
-            $posts = Post::with('user', 'postComments', 'subCategories') //subCategories追加
-                ->where('post_title', 'like', '%' . $request->keyword . '%') //リクエストされたname=keywordがPostテーブルのpost_titleと部分一致することが条件
-                ->orWhere('post', 'like', '%' . $request->keyword . '%') //またはリクエストされたname=keywordがPostテーブルのpostと部分一致することが条件
-                ->whereHas('subCategories', function ($query) use ($request) {
-                    $query->where('sub_category', '=', $request->keyword);
+            $posts = Post::with('user', 'postComments')
+                ->where('post_title', 'like', '%' . $request->keyword . '%')
+                ->orWhere('post', 'like', '%' . $request->keyword . '%')
+                ->orWhereHas('subCategories', function ($query) use ($request) { //whereHas:リレーション先のテーブルでレコードを探してくれる,orをつけないとAND検索になるため「orWhereHas」でOR検索にする
+                    $query->where('sub_category', $request->keyword); //sub_categoryカラムの値とrequestで送られてきた値が同じものを表示
                 })->get();
-            //->orWhere('sub_category', '=', $request->keyword)
-            //$sub_categories_search = SubCategory::with('posts')
-            //->where('sub_category', '=', $request->keyword)->get();
         } else if ($request->category_word) { //サブカテゴリーから検索
             $sub_category = $request->category_word;
-            $posts = Post::with('user', 'postComments')->get();
+            $posts = Post::with('user', 'postComments')
+                ->whereHas('subCategories', function ($query) use ($request) { //whereHas:リレーション先のテーブルでレコードを探してくれる
+                    $query->where('sub_category', $request->category_word); //sub_categoryカラムの値とrequestで送られてきた値が同じものを表示
+                })->get();
         } else if ($request->like_posts) { //いいねした投稿を表示
             $likes = Auth::user()->likePostId()->get('like_post_id');
             $posts = Post::with('user', 'postComments')
