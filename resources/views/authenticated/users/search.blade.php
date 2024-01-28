@@ -6,7 +6,7 @@
 <p>ユーザー検索</p>
 <div class="search_content w-100 border d-flex">
   <div class="reserve_users_area">
-    @foreach($users as $user)
+    @foreach($users as $user) <!--ユーザーの一覧が出る-->
     <div class="border one_person">
       <div>
         <span>ID : </span><span>{{ $user->id }}</span>
@@ -56,6 +56,7 @@
     </div>
     @endforeach
   </div>
+  <!--ここから検索-->
   <div class="search_area w-25 border">
     <div class="">
       <div>
@@ -97,13 +98,14 @@
           <div class="selected_engineer">
             <label>選択科目</label>
             <div>
-              <span>国語</span><input type="checkbox" name="" value="" form="userSearchRequest">
+              <span>国語</span><input type="checkbox" name="subjects[]" value="1" form="userSearchRequest"> <!--name:subjects value:subjectsテーブルのid-->
+              <!--複数選択できるのでname="subjects"で送られてきた選択項目を配列に入れるため[]を追加-->
             </div>
             <div>
-              <span>数学</span><input type="checkbox" name="" value="" form="userSearchRequest">
+              <span>数学</span><input type="checkbox" name="subjects[]" value="2" form="userSearchRequest"> <!--name:subjects value:subjectsテーブルのid-->
             </div>
             <div>
-              <span>英語</span><input type="checkbox" name="" value="" form="userSearchRequest">
+              <span>英語</span><input type="checkbox" name="subjects[]" value="3" form="userSearchRequest"> <!--name:subjects value:subjectsテーブルのid-->
             </div>
           </div>
         </div>
