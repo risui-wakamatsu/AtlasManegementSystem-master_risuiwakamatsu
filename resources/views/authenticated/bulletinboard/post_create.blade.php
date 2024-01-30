@@ -15,7 +15,9 @@
           <optgroup label="{{ $main_category->main_category }}"></optgroup> <!--optgroupはselect要素の選択グループを作成する、選択できない-->
           <!-- サブカテゴリー表示 -->
           @foreach($sub_categories as $sub_category)
+          @if($main_category->id == $sub_category->main_category_id) <!--メインカテゴリーのidとサブカテゴリーのmain_category_idカラムの値が同じものを表示-->
           <option value="{{$sub_category->id}}">{{$sub_category->sub_category}}</option>
+          @endif
           @endforeach
           @endforeach
         </select>
