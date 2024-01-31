@@ -18,18 +18,19 @@ class UsersController extends Controller
 
     public function showUsers(Request $request)
     {
+        //dd($request);
         $keyword = $request->keyword;
         $category = $request->category;
         $updown = $request->updown;
         $gender = $request->sex;
         $role = $request->role;
         $subjects = $request->subjects; //ここで検索時の科目を受け取る
-        var_dump($subjects);
+        //var_dump($subjects);
         //$subjects = Auth::User()->subjects()->get(); //User.phpのsubjectsメソッドを取得
         //$subject_id = Auth::User()->subjects()->pluck('subject_id'); //リレーション先のsubjectのidを取得
         //$subjects = User::with('subject')->whereIn('user_id', $subject_id)->latest()->get();
 
-        $userFactory = new SearchResultFactories(); //SearchResultFactoriesモデルをインスタンス化、モデルをコントローラーで使えるようにするため
+        $userFactory = new SearchResultFactories(); //SearchResultFactoriesクラスをインスタンス化、モデルをコントローラーで使えるようにするため
         $users = $userFactory->initializeUsers($keyword, $category, $updown, $gender, $role, $subjects);
         //$usersにインスタンスしたモデル(SearchResultFactories)からメソッド(initializeUsers)呼び出し
         $subjects = Subjects::all();
