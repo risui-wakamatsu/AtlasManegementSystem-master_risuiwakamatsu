@@ -32,7 +32,7 @@ class SelectIdDetails implements DisplayUsers
           ->whereIn('role', $role);
       })
       ->whereHas('subjects', function ($q) use ($subjects) {
-        $q->whereIn('subjects.id', $subjects);
+        $q->whereIn('subjects.id', $subjects); //whereだと$subjectsを配列として処理できないのでwhereInに修正して、subjectsで送られてきた配列を全て処理できるようにする
       })
       ->orderBy('id', $updown)->get();
     return $users;

@@ -11,16 +11,16 @@ class CalendarView
 
   function __construct($date)
   {
-    $this->carbon = new Carbon($date);
+    $this->carbon = new Carbon($date); //Carbon：日付を扱う時に利用可能なライブラリ
   }
 
   //日付を○年△月で取得
-  public function getTitle()
+  public function getTitle() //タイトルを取得
   {
     return $this->carbon->format('Y年n月');
   }
 
-  public function render()
+  public function render() //カレンダーを出力
   {
     $html = [];
     $html[] = '<div class="calendar text-center">';
@@ -38,16 +38,16 @@ class CalendarView
     $html[] = '</thead>';
     $html[] = '<tbody>';
 
-    $weeks = $this->getWeeks();
+    $weeks = $this->getWeeks(); ///週カレンダーオブジェクトの配列を取得
 
-    foreach ($weeks as $week) {
-      $html[] = '<tr class="' . $week->getClassName() . '">';
-      $days = $week->getDays();
-      foreach ($days as $day) {
-        $startDay = $this->carbon->format("Y-m-01");
-        $toDay = $this->carbon->format("Y-m-d");
-        if ($startDay <= $day->everyDay() && $toDay >= $day->everyDay()) {
-          $html[] = '<td class="past-day border">';
+    foreach ($weeks as $week) { //週カレンダーオブジェクトを繰り返す
+      $html[] = '<tr class="' . $week->getClassName() . '">'; //クラス名を出力
+      $days = $week->getDays(); //日カレンダーオブジェクトを取得
+      foreach ($days as $day) { //日カレンダーオブジェクトを繰り返す
+        $startDay = $this->carbon->format("Y-m-01"); //月の初日(1日)
+        $toDay = $this->carbon->format("Y-m-d"); //今日
+        if ($startDay <= $day->everyDay() && $toDay >= $day->everyDay()) { //1日より後もしくは1日も含む日付 かつ 今日よりも前もしくは今日を含む日付
+          $html[] = '<td class="past-day border">'; //past-day　過去の日付
         } else {
           $html[] = '<td class="border ' . $day->getClassName() . '">';
         }

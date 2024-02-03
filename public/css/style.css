@@ -40,18 +40,22 @@ li {
 
 /* スクール予約関連 */
 .day-blank {
+  /*日付がない日*/
   background: #D3D3D3;
 }
 
 .day-sat {
+  /*土曜日*/
   color: #0000FF;
 }
 
 .day-sun {
+  /*日曜日*/
   color: #FF0000;
 }
 
 .past-day {
+  /*過去*/
   background: #EEE;
 }
 

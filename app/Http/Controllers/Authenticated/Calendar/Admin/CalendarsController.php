@@ -16,9 +16,9 @@ use DB;
 
 class CalendarsController extends Controller
 {
-    public function show()
+    public function show() //カレンダー表示
     {
-        $calendar = new CalendarView(time());
+        $calendar = new CalendarView(time()); //time()を使うことで現在時刻を渡し、今月のカレンダーを表示  CalendarViewクラスを使用
         return view('authenticated.calendar.admin.calendar', compact('calendar'));
     }
 
