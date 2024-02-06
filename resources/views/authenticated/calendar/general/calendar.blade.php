@@ -17,4 +17,20 @@
     </div>
   </div>
 </div>
+
+<!--modal-->
+<div class="modal">
+  <div class="modal__bg">
+    <div class="modal__content">
+      <form action="{{route('deleteParts')}}" method="post">
+        <p>予約日：</p>
+        <p>時間：</p>
+        <p>上記の予約キャンセルしてもよろしいですか？</p>
+        <a href="" class="js-modal-close btn btn-primary">閉じる</a>
+        <a href="" class="btn btn-danger">キャンセル</a>
+      </form>
+    </div>
+  </div>
+</div>
+
 @endsection
