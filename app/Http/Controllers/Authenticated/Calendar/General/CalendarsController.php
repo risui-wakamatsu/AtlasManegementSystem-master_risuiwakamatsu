@@ -40,20 +40,10 @@ class CalendarsController extends Controller
         return redirect()->route('calendar.general.show', ['user_id' => Auth::id()]);
     }
 
-    public function delete(Request $request)
+    public function delete($id) //キャンセルの記述
     {
-        $delete = $request->delete_date;
-        //detachで中間テーブルの紐付けを解除する記述を書く
-        //
-        $reservePart = $day->authReserveDate($day->everyDay())->first()->setting_part; //setting_partカラムを取得
-        //未来の参加する日を表示
-        if ($reservePart == 1) { //1なら
-            $reservePart = "リモ1部";
-        } else if ($reservePart == 2) { //2なら
-            $reservePart = "リモ2部";
-        } else if ($reservePart == 3) { //3なら
-            $reservePart = "リモ3部";
-        }
-        return redirect()->route('calendar.general.show', compact('delete', 'reservePart'));
+        $setting_reserve = ReserveSettings::find($id);
+        $setting_reserve->delete();
+        return redirect()->route('calendar.general.show');
     }
 }

@@ -76,7 +76,7 @@ class CalendarView
             $html[] = '<p class="m-auto p-0 w-75" style="font-size:12px">' . $reservePart . '参加</p>'; ///参加した部数を上記のif文で取得　変数をpタグに埋め込む
             $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
           } else {
-            $html[] = '<button type="submit" class="btn btn-danger p-0 w-75" name="delete_date" style="font-size:12px" value="' . $day->authReserveDate($day->everyDay())->first()->setting_reserve . '" id="open-modal">' . $reservePart . '</button>';
+            $html[] = '<button type="submit" class="btn btn-danger p-0 w-75" name="delete_date" style="font-size:12px" value="' . $day->authReserveDate($day->everyDay())->first()->setting_reserve . '" id="open-modal">' . $reservePart . '</button>'; //キャンセルボタン
             $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
           }
         } else if ($startDay <= $day->everyDay() && $toDay >= $day->everyDay()) { //else ifを追加する(予約していないけど過去日の場合)　予約していない場合の1日から今日までの日付
