@@ -38,13 +38,13 @@ class CalendarWeekDay
 
     $html[] = '<div class="text-left">';
     if ($one_part) {
-      $html[] = '<p class="day_part m-0 pt-1"><a href="">1部</a></p>';
+      $html[] = '<p class="day_part m-0 pt-1"><a href="calendar.admin.detail">1部</a>0</p>';
     }
     if ($two_part) {
-      $html[] = '<p class="day_part m-0 pt-1"><a href="">2部</a></p>';
+      $html[] = '<p class="day_part m-0 pt-1"><a href="calendar.admin.detail">2部</a>0</p>';
     }
     if ($three_part) {
-      $html[] = '<p class="day_part m-0 pt-1"><a href="">3部</a></p>';
+      $html[] = '<p class="day_part m-0 pt-1"><a href="calendar.admin.detail">3部</a>0</p>';
     }
     $html[] = '</div>';
 

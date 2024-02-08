@@ -18,16 +18,18 @@
   </div>
 </div>
 
-<!--modal-->
+<!--キャンセルボタン　モーダル機能-->
 <div class="modal">
   <div class="modal__bg">
     <div class="modal__content">
       <form action="{{route('deleteParts')}}" method="post">
-        <p>予約日：</p>
-        <p>時間：</p>
-        <p>上記の予約キャンセルしてもよろしいですか？</p>
+        <div class="modal_delete_date">
+          <p>予約日：</p>
+          <p>時間：</p>
+          <p>上記の予約キャンセルしてもよろしいですか？</p>
+        </div>
         <a href="" class="js-modal-close btn btn-primary">閉じる</a>
-        <a href="" class="btn btn-danger">キャンセル</a>
+        <input type="submit" class="btn btn-danger" value="キャンセル"></input>
       </form>
     </div>
   </div>

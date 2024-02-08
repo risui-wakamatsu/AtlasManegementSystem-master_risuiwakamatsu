@@ -42,8 +42,10 @@ class CalendarsController extends Controller
 
     public function delete($id) //キャンセルの記述
     {
-        $setting_reserve = ReserveSettings::find($id);
-        $setting_reserve->delete();
+        //detach使って紐付け解除
+        $user = User::get();
+        $user->reserve_settings()->detach($id);
+
         return redirect()->route('calendar.general.show');
     }
 }
