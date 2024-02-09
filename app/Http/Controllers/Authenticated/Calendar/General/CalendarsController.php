@@ -40,12 +40,13 @@ class CalendarsController extends Controller
         return redirect()->route('calendar.general.show', ['user_id' => Auth::id()]);
     }
 
-    public function delete($id) //キャンセルの記述
+    public function delete() //キャンセルの記述
     {
+        $reserve_setting = ReserveSettings::get();
         //detach使って紐付け解除
         $user = User::get();
         $user->reserve_settings()->detach($id);
 
-        return redirect()->route('calendar.general.show');
+        return redirect()->route('calendar.general.show', compact('reserve_setting'));
     }
 }

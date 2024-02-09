@@ -24,10 +24,12 @@
     <div class="modal__content">
       <form action="{{route('deleteParts')}}" method="post">
         <div class="modal_delete_date">
-          <p>予約日：</p>
-          <p>時間：</p>
-          <p>上記の予約キャンセルしてもよろしいですか？</p>
+          <p></p>
         </div>
+        <div class="modal_delete_part">
+          <p></p>
+        </div>
+        <p>上記の予約キャンセルしてもよろしいですか？</p>
         <a href="" class="js-modal-close btn btn-primary">閉じる</a>
         <input type="submit" class="btn btn-danger" value="キャンセル"></input>
       </form>

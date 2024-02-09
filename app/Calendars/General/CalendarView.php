@@ -76,8 +76,9 @@ class CalendarView
             $html[] = '<p class="m-auto p-0 w-75" style="font-size:12px">' . $reservePart . '参加</p>'; ///参加した部数を上記のif文で取得　変数をpタグに埋め込む
             $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
           } else {
-            $html[] = '<button type="submit" class="open-modal btn btn-danger p-0 w-75" name="delete_date" style="font-size:12px" value="' . $day->authReserveDate($day->everyDay())->first()->setting_reserve . '">' . $reservePart . '</button>'; //キャンセルボタン
+            $html[] = '<button type="submit" class="open-modal btn btn-danger p-0 w-75" name="delete_date" style="font-size:12px" value="' . $day->authReserveDate($day->everyDay())->first()->setting_reserve . '" delete_date="' . $day->authReserveDate($day->everyDay())->first()->setting_reserve . '" delete_part="' . $reservePart . '">' . $reservePart . '</button>'; //キャンセルボタン
             //id=~~~で記述してしまうと一つのボタンしか反応しなくなってしまうので、モーダル機能のボタンはclass=~~~~で記述
+            //delete_date属性とdelete_part属性を用いて値をjsに送信する
             $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
           }
         } else if ($startDay <= $day->everyDay() && $toDay >= $day->everyDay()) { //else ifを追加する(予約していないけど過去日の場合)　予約していない場合の1日から今日までの日付
