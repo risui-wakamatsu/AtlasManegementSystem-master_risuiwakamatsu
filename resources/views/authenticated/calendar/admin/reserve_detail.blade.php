@@ -11,15 +11,17 @@
           <th class="w-25">名前</th>
           <th class="w-25">場所</th>
         </tr>
-        <tr class="text-center">
-          @foreach($reservePersons as $person) <!--予約と関連するユーザーの情報-->
-          @foreach($person->users as $user) <!--上記の中から更にユーザーの情報のみを取り出してforeachさせる-->
-          <td class="w-25">{{ $user->id }}</td>
-          <td class="w-25">{{ $user->over_name }}{{ $user->under_name }}</td>
-          @endforeach
-          <td class="w-25">リモート</td>
-          @endforeach
+        @foreach($reservePersons as $person) <!--予約と関連するユーザーの情報-->
+        @foreach($person->users as $user) <!--上記の中から更にユーザーの情報のみを取り出してforeachさせる-->
+        <tr class="text-center ">
+
+          <td class="">{{ $user->id }}</td>
+          <td class="">{{ $user->over_name }}{{ $user->under_name }}</td>
+          <td class="">リモート</td>
         </tr>
+
+        @endforeach
+        @endforeach
       </table>
     </div>
   </div>
