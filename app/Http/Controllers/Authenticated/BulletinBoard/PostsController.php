@@ -96,7 +96,6 @@ class PostsController extends Controller
         ]);
         return redirect()->route('post.detail', ['id' => $request->post_id]);
     }
-
     //投稿削除
     public function postDelete($id)
     {

@@ -29,22 +29,24 @@ class CalendarWeekDay
     return $this->carbon->format("Y-m-d");
   }
 
-  function dayPartCounts($ymd) //スクール予約確認
+  function dayPartCounts($ymd) //スクール予約確認、予約数カウント
   {
     $html = [];
-    $one_part = ReserveSettings::with('users')->where('setting_reserve', $ymd)->where('setting_part', '1')->first();
+    $one_part = ReserveSettings::with('users')->where('setting_reserve', $ymd)->where('setting_part', '1')->first(); //setting_reserveカラムの日付にあるsetting_partが1
     $two_part = ReserveSettings::with('users')->where('setting_reserve', $ymd)->where('setting_part', '2')->first();
     $three_part = ReserveSettings::with('users')->where('setting_reserve', $ymd)->where('setting_part', '3')->first();
 
     $html[] = '<div class="text-left">';
     if ($one_part) {
-      $html[] = '<p class="day_part m-0 pt-1"><a href="calendar.admin.detail">1部</a>0</p>';
+      $html[] = '<p class="day_part m-0 pt-1"><a href="calendar.admin.detail">1部</a>' . $one_part->users()->count() . '</p>';
+      //1部に参加しているユーザーの人数をcount関数で取得
+      //"' . route('calendar.admin.detail', ['date' => $date, 'part' => $part]) . '""
     }
     if ($two_part) {
-      $html[] = '<p class="day_part m-0 pt-1"><a href="calendar.admin.detail">2部</a>0</p>';
+      $html[] = '<p class="day_part m-0 pt-1"><a href="calendar.admin.detail">2部</a>' . $two_part->users()->count() . '</p>';
     }
     if ($three_part) {
-      $html[] = '<p class="day_part m-0 pt-1"><a href="calendar.admin.detail">3部</a>0</p>';
+      $html[] = '<p class="day_part m-0 pt-1"><a href="calendar.admin.detail">3部</a>' . $three_part->users()->count() . '</p>';
     }
     $html[] = '</div>';
 

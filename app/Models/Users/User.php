@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Users\Subjects; //追加
+use App\Models\Calendars\ReserveSettings; //追加
 
 use App\Models\Posts\Like;
 use Auth;
@@ -96,4 +97,12 @@ class User extends Authenticatable
     {
         return Like::where('like_user_id', Auth::id()); //like_user_idの値がログインユーザーのデータを取得
     }
+
+    //予約しているか
+    //public function is_Reserve($reserve_settings)
+    //{    return $this->reserveSettings()->where('reserve_setting_id', $reserve_settings)->first(['reserve_settings.id']);}
+
+    //予約解除
+    //public function unreserve($reserve_settings)
+    //{  return $this->reserveSettings()->detach($reserve_settings);}
 }

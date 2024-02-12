@@ -9,6 +9,7 @@ $(function () {
   });
   $('.js-modal-close').on('click', function () { //閉じるボタンを押すとモーダルを閉じる
     $('.modal').fadeOut();
+    return false;
   });
 
 });
