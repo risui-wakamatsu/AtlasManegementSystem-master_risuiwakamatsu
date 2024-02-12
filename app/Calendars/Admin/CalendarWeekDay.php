@@ -38,15 +38,15 @@ class CalendarWeekDay
 
     $html[] = '<div class="text-left">';
     if ($one_part) {
-      $html[] = '<p class="day_part m-0 pt-1"><a href="calendar.admin.detail">1部</a>' . $one_part->users()->count() . '</p>';
+      $html[] = '<p class="day_part m-0 pt-1"><a href="' . route('calendar.admin.detail', ['date' => $ymd, 'part' => '1']) . '">1部</a>' . $one_part->users()->count() . '</p>';
       //1部に参加しているユーザーの人数をcount関数で取得
-      //"' . route('calendar.admin.detail', ['date' => $date, 'part' => $part]) . '""
+      //リンク先「/calendar/{date}/{part}'」 {date}には日付の$ymd、{part}には部数
     }
     if ($two_part) {
-      $html[] = '<p class="day_part m-0 pt-1"><a href="calendar.admin.detail">2部</a>' . $two_part->users()->count() . '</p>';
+      $html[] = '<p class="day_part m-0 pt-1"><a href="' . route('calendar.admin.detail', ['date' => $ymd, 'part' => '2']) . '">2部</a>' . $two_part->users()->count() . '</p>';
     }
     if ($three_part) {
-      $html[] = '<p class="day_part m-0 pt-1"><a href="calendar.admin.detail">3部</a>' . $three_part->users()->count() . '</p>';
+      $html[] = '<p class="day_part m-0 pt-1"><a href="' . route('calendar.admin.detail', ['date' => $ymd, 'part' => '3']) . '">3部</a>' . $three_part->users()->count() . '</p>';
     }
     $html[] = '</div>';
 
