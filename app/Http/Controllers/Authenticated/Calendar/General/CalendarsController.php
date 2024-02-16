@@ -47,22 +47,26 @@ class CalendarsController extends Controller
 
     public function delete(Request $request) //キャンセル機能
     {
+        //dd($request);
+        //$reserve_settings=ReserveSettings::;
         DB::beginTransaction(); //データベースの操作を行う
         try {
-            //$getPart = $request->getPart; //選択されたプルダウンのパート
-            //$getDate = $request->getData; //パートが選択された日時
+            //idを取得
+            $cancel = $request->cancel_id;
+            //dd($cancel);
+            //$cancel_date = $request->delete_part; //valueに値を入れればnullではなくなる
+            //dd($cancel_date);
+            //$cancel_part = $request->cancel_part;
             //日付の値を受け取る
             //時間（パート）の値を受け取る
-            $cancel = $request->cancel; //キャンセルボタンから
-            //dd($cancel);
-            $reserveDays = array_filter(array($cancel)); //$reserveDays=リクエストで送られてきたパートと日時の連想配列になっている
-            foreach ($reserveDays as $key => $value) {
-                $reserve_settings = ReserveSettings::where('setting_reserve', $key)->where('setting_part', $value)->first();
-                $reserve_settings->increment('limit_users');
-                //→increment：属性の増加をするメソッド、上記の条件が満たされたときにlimit_usersカラムが増加される
-                $reserve_settings->users()->detach(Auth::id());
-                //→上記の条件が満たされたときにリレーション先のusersテーブルのログインユーザーのidとdetach(紐付け解除)を行う
-            }
+            //$reserveDays = array_filter(array($cancel_date, $cancel_part)); //$reserveDays=リクエストで送られてきたパートと日時の連想配列になっている
+            //foreach ($reserveDays as $key => $value) {
+            $reserve_settings = ReserveSettings::where('id', $cancel)->first();
+            $reserve_settings->increment('limit_users');
+            //→increment：属性の増加をするメソッド、上記の条件が満たされたときにlimit_usersカラムが増加される
+            $reserve_settings->users()->detach(Auth::id());
+            //→上記の条件が満たされたときにリレーション先のusersテーブルのログインユーザーのidとdetach(紐付け解除)を行う
+            //}
             DB::commit(); //全ての操作が成功したらコミットし変更を確定する
         } catch (\Exception $e) {
             DB::rollback(); //エラーが発生したらロールバックして変更を取り消す

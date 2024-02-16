@@ -14,12 +14,10 @@
         @foreach($reservePersons as $person) <!--予約と関連するユーザーの情報-->
         @foreach($person->users as $user) <!--上記の中から更にユーザーの情報のみを取り出してforeachさせる-->
         <tr class="text-center ">
-
           <td class="">{{ $user->id }}</td>
           <td class="">{{ $user->over_name }}{{ $user->under_name }}</td>
           <td class="">リモート</td>
         </tr>
-
         @endforeach
         @endforeach
       </table>

@@ -21,17 +21,18 @@
 <div class="modal">
   <div class="modal__bg">
     <div class="modal__content">
-      <form action="{{route('deleteParts')}}" method="post"> <!--CalendarsControllerのdeleteメソッドに飛ぶようにする-->
-        <div class="modal_delete_date">
-          <p></p> <!--js側でここに「予約日：」が入るように記述-->
-        </div>
-        <div class="modal_delete_part">
-          <p></p><!--js側でここに「時間：」が入るように記述-->
-        </div>
-        <p>上記の予約キャンセルしてもよろしいですか？</p>
-        <a href="" class="js-modal-close btn btn-primary">閉じる</a>
-        <button type="submit" class="btn btn-danger" name="cancel" value="" form="deleteParts">キャンセル</button>
-      </form>
+      <div class="modal_delete_date">
+        <p></p> <!--js側でここに「予約日：」が入るように記述 pタグで表示-->
+      </div>
+      <div class="modal_delete_part">
+        <p></p> <!--js側でここに「時間：」が入るように記述-->
+      </div>
+      <p>上記の予約キャンセルしてもよろしいですか？</p>
+      <a href="" class="js-modal-close btn btn-primary">閉じる</a>
+      <input type="submit" class="btn btn-danger modal_cancel_btn" value="キャンセル" form="deleteParts"></input>
+      <input class="cancel_date_hidden" type="hidden" name="delete_part" value="" form="deleteParts"> <!--jsからデータを受け取りcontrollerへ送信する-->
+      <input class="cancel_part_hidden" type="hidden" name="cancel_part" value="" form="deleteParts">
+      <input class="cancel_id_hidden" type="hidden" name="cancel_id" value="" form="deleteParts"> <!--idを取得するためのフォーム-->
     </div>
   </div>
 </div>
