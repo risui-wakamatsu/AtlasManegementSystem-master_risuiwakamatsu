@@ -15,11 +15,13 @@
 ul,
 li {
   list-style: none;
+  padding-left: 0px;
 }
 
 /* サイドバー */
 .sidebar {
-  width: 150px;
+  padding: 20px 5px 0 5px;
+  width: 185px;
   height: 100vh;
   background-color: #03AAD2;
   font-weight: bold;
@@ -72,7 +74,7 @@ li {
 }
 
 .adjust-table {
-  width: 70% !important;
+  width: 90% !important;
 }
 
 .adjust-table td {
@@ -84,7 +86,9 @@ li {
 }
 
 .adjust-table-btn {
-  width: 70%;
+  width: 90%;
+  padding-top: 40px;
+
 }
 
 /* モーダル */
@@ -239,8 +243,8 @@ li {
   border-radius: 5px;
   padding: 0 5px;
   border: none;
-  background: #999;
-  color: #FFF;
+  /*background: #999;*/
+  color: #696969;
 }
 
 .sub_category_btn {
@@ -299,4 +303,126 @@ li {
 
 .subject_inner {
   display: none;
+}
+
+.login_img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login_img img {
+  margin-top: 200px;
+  margin-bottom: 50px;
+}
+
+/*ユーザー登録画面の生年月日のセレクトボックスをアンダーバーのみにする*/
+.old_year,
+.old_month,
+.old_day {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+.post_btn {
+  margin: 49px 0 10px 0;
+}
+
+.post_user_name {
+  color: #a9a9a9;
+  font-weight: bold;
+}
+
+.post_user_title {
+  color: #000000;
+  font-weight: bold;
+}
+
+.post_user_category {
+  background: black;
+}
+
+.search_slide {
+  margin-top: 15px;
+}
+
+.comment_post_btn {
+  text-align: right;
+}
+
+.reserve_create {
+  padding: 40px 0 10px 0;
+  margin: 0 100px;
+}
+
+.reserve_detail {
+  width: 75%;
+}
+
+.detail_item {
+  color: #EEE;
+  background: #03AAD2;
+}
+
+.detail_container {
+  background: white;
+}
+
+.detail_td {
+  height: 40px;
+}
+
+/* 偶数行の背景色 */
+.detail_user:nth-child(even) td {
+  background-color: white;
+}
+
+/* 奇数行の背景色 */
+.detail_user:nth-child(odd) td {
+  background-color: #e0ffff;
+}
+
+label.search {
+  display: block;
+  color: #164a84;
+}
+
+span,
+input[type="radio"] {
+  display: inline-block;
+  margin-right: 10px;
+  /* ラベルとラジオボタンの間に間隔を設定 */
+}
+
+.search_subject {
+  display: inline-block;
+  margin-right: 20px;
+  /* 各要素の間隔を調整 */
+}
+
+.search_item {
+  border: none;
+  /* 枠のスタイルと色を指定 */
+  border-radius: 5px;
+  /* 枠の角を丸くする */
+  background-color: #dcdcdc;
+  /* 背景色 */
+  color: #333;
+  /* テキストの色 */
+  padding: 6px 12px;
+  /* 内側の余白 */
+}
+
+.search-btn {
+  width: 70%;
+  margin-top: 15px;
+}
+
+.reset_btn {
+  color: #17a2b8;
+  border: none;
+  margin-left: 75px;
+  margin-top: 15px;
+  background: none;
 }

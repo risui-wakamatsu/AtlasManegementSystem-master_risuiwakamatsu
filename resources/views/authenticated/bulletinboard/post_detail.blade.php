@@ -4,7 +4,7 @@
 @section('content')
 <div class="vh-100 d-flex">
   <div class="w-50 mt-5">
-    <div class="m-3 detail_container">
+    <div class="m-3 detail_container" style="border-radius:5px">
       <div class="p-3">
         <div class="detail_inner_head">
           <div>
@@ -51,7 +51,7 @@
     </div>
   </div>
   <div class="w-50 p-3">
-    <div class="comment_container border m-5">
+    <div class="comment_container border m-5" style="border-radius:5px">
       <div class="comment_area p-3">
         @if($errors->first('comment'))
         <span class="error_message">{{ $errors->first('comment') }}</span>
@@ -59,7 +59,9 @@
         <p class="m-0">コメントする</p>
         <textarea class="w-100" name="comment" form="commentRequest"></textarea>
         <input type="hidden" name="post_id" form="commentRequest" value="{{ $post->id }}">
-        <input type="submit" class="btn btn-primary" form="commentRequest" value="投稿">
+        <div class="comment_post_btn">
+          <input type="submit" class="btn btn-primary" form="commentRequest" value="投稿">
+        </div>
         <form action="{{ route('comment.create') }}" method="post" id="commentRequest">{{ csrf_field() }}</form>
       </div>
     </div>

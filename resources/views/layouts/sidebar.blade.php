@@ -14,21 +14,22 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&family=Oswald:wght@200&display=swap" rel="stylesheet">
   <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet"> <!--Googleのアイコンが使えるようにする-->
 </head>
 
 <body class="all_content">
   <div class="d-flex">
     <div class="sidebar">
       @section('sidebar')
-      <p><a href="{{ route('top.show') }}">トップ</a></p>
-      <p><a href="/logout">ログアウト</a></p>
-      <p><a href="{{ route('calendar.general.show',['user_id' => Auth::id()]) }}">スクール予約</a></p>
+      <p><a href="{{ route('top.show') }}"><i class="material-icons" style="vertical-align: middle;">home</i>マイページ</a></p>
+      <p><a href="/logout"><i class="material-icons" style="vertical-align: middle;">logout</i>ログアウト</a></p>
+      <p><a href="{{ route('calendar.general.show',['user_id' => Auth::id()]) }}"><i class="material-icons" style="vertical-align: middle;">calendar_month</i>スクール予約</a></p>
       @can('admin') <!--管理者(講師アカウント)のみに見える内容-->
-      <p><a href="{{ route('calendar.admin.show',['user_id' => Auth::id()]) }}">スクール予約確認</a></p>
-      <p><a href="{{ route('calendar.admin.setting',['user_id' => Auth::id()]) }}">スクール枠登録</a></p>
+      <p><a href="{{ route('calendar.admin.show',['user_id' => Auth::id()]) }}"><i class="material-icons" style="vertical-align: middle;">event_available</i>スクール予約確認</a></p>
+      <p><a href="{{ route('calendar.admin.setting',['user_id' => Auth::id()]) }}"><i class="material-icons" style="vertical-align: middle;">edit_calendar</i>スクール枠登録</a></p>
       @endcan
-      <p><a href="{{ route('post.show') }}">掲示板</a></p>
-      <p><a href="{{ route('user.show') }}">ユーザー検索</a></p>
+      <p><a href="{{ route('post.show') }}"><i class="material-icons" style="vertical-align: middle;">chat</i>掲示板</a></p>
+      <p><a href="{{ route('user.show') }}"><i class="material-icons" style="vertical-align: middle;">group</i>ユーザー検索</a></p>
       @show
     </div>
     <div class="main-container">

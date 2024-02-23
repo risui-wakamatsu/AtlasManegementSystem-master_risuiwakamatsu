@@ -15,9 +15,13 @@
 </head>
 
 <body>
+  <!--ここにアトラスロゴ-->
+  <div class="login_img">
+    <img src="image/atlas-black.png" alt="アトラスロゴ" width="200" height="">
+  </div>
   <form action="{{ route('loginPost') }}" method="POST">
-    <div class="w-100 vh-100 d-flex" style="align-items:center; justify-content:center;">
-      <div class="border vh-50 w-25">
+    <div class="w-100 d-flex" style="align-items:center; justify-content:center;">
+      <div class=" border vh-50 w-25" style="border-radius:20px;">
         <div class="w-75 m-auto pt-5">
           <label class="d-block m-0" style="font-size:13px;">メールアドレス</label>
           <div class="border-bottom border-primary w-100">
@@ -33,8 +37,8 @@
         <div class="text-right m-3">
           <input type="submit" class="btn btn-primary" value="ログイン">
         </div>
-        <div class="text-center">
-          <a href="{{ route('registerView') }}">新規登録</a>
+        <div class="text-center" style="margin-bottom:15px;">
+          <a href="{{ route('registerView') }}">新規登録はこちら</a>
         </div>
       </div>
       {{ csrf_field() }}

@@ -23,7 +23,7 @@ class CalendarView
   { //カレンダーを出力
     $html = [];
     $html[] = '<div class="calendar text-center">';
-    $html[] = '<table class="table">';
+    $html[] = '<table class="table" style="margin-bottom:0;">';
     $html[] = '<thead>';
     $html[] = '<tr>';
     $html[] = '<th>月</th>';

@@ -5,13 +5,15 @@
 @section('content')
 <div class="board_area w-100 border m-auto d-flex">
   <div class="post_view w-75 mt-5">
-    <p class="w-75 m-auto">投稿一覧</p>
+    <!--<p class="w-75 m-auto"></p>-->
     @foreach($posts as $post)
     <div class="post_area border w-75 m-auto p-3">
-      <p><span>{{ $post->user->over_name }}</span><span class="ml-3">{{ $post->user->under_name }}</span>さん</p>
-      <p><a href="{{ route('post.detail', ['id' => $post->id]) }}">{{ $post->post_title }}</a></p> <!--投稿詳細へ-->
+      <p class="post_user_name"><span>{{ $post->user->over_name }}</span><span class="ml-3">{{ $post->user->under_name }}</span>さん</p>
+      <p><a class="post_user_title" href="{{ route('post.detail', ['id' => $post->id]) }}">{{ $post->post_title }}</a></p> <!--投稿詳細へ-->
       <div class="post_bottom_area d-flex">
-        <p><span class="category_btn"></span></p> <!---サブカテゴリーが表示される記述をする　多分中間テーブル？-->
+        @foreach($sub_categories as $sub_category)
+        <p class="post_user_category btn-info" style="border-radius:5px;">{{$sub_category->sub_category}}</p>
+        @endforeach
         <div class="d-flex post_status">
           <div class="mr-5">
             <!--コメント-->
@@ -31,25 +33,30 @@
     </div>
     @endforeach
   </div>
-  <div class="other_area border w-25">
-    <div class="border m-4">
-      <div class=""><a href="{{ route('post.input') }}">投稿</a></div>
-      <div class="">
+  <div class="other_area no-border w-25">
+    <div class="no-border m-4">
+      <div class="post_btn"><a href="{{ route('post.input') }}"><button type="button" class="btn btn-info container-fluid">投稿</button></a></div>
+      <div class="post_search">
         <input type="text" placeholder="キーワードを検索" name="keyword" form="postSearchRequest">
-        <input type="submit" value="検索" form="postSearchRequest">
+        <input class="btn btn-info" type="submit" value="検索" form="postSearchRequest">
       </div>
-      <input type="submit" name="like_posts" class="category_btn" value="いいねした投稿" form="postSearchRequest">
-      <input type="submit" name="my_posts" class="category_btn" value="自分の投稿" form="postSearchRequest">
-      <ul>
-        @foreach($categories as $category)
-        <li class="main_categories" category_id="{{ $category->id }}"><span>{{ $category->main_category }}<span></li>
-        @foreach($sub_categories as $sub_category)
-        @if($category->id == $sub_category->main_category_id) <!--メインカテゴリーのidとサブカテゴリーのmain_category_idカラムの値が同じものを表示-->
-        <input type="submit" name="category_word" class="category_btn" value="{{$sub_category->sub_category}}" form="postSearchRequest">
-        @endif
-        @endforeach
-        @endforeach
-      </ul>
+      <div style="margin-top:10px">
+        <input type="submit" name="like_posts" class="like_btn btn btn-danger" value="いいねした投稿" form="postSearchRequest">
+        <input type="submit" name="my_posts" class="my_post_btn btn btn-warning" value="自分の投稿" form="postSearchRequest">
+      </div>
+      <div class="search_slide">
+        <p>カテゴリー検索</p>
+        <ul>
+          @foreach($categories as $category)
+          <li class="main_categories" category_id="{{ $category->id }}"><span>{{ $category->main_category }}<span></li>
+          @foreach($sub_categories as $sub_category)
+          @if($category->id == $sub_category->main_category_id) <!--メインカテゴリーのidとサブカテゴリーのmain_category_idカラムの値が同じものを表示-->
+          <input type="submit" name="category_word" class="category_btn" value="{{$sub_category->sub_category}}" form="postSearchRequest">
+          @endif
+          @endforeach
+          @endforeach
+        </ul>
+      </div>
     </div>
   </div>
   <form action="{{ route('post.show') }}" method="get" id="postSearchRequest"></form>
