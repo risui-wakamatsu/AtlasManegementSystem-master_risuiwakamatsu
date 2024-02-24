@@ -12,7 +12,9 @@
       <p><a class="post_user_title" href="{{ route('post.detail', ['id' => $post->id]) }}">{{ $post->post_title }}</a></p> <!--投稿詳細へ-->
       <div class="post_bottom_area d-flex">
         @foreach($sub_categories as $sub_category)
+        @if($post->subCategories->contains('id', $sub_category->id)) <!--$postに関するサブカテゴリーの情報が中間テーブルに入っているかチェックし、入っていれば対象のサブカテゴリーを表示する-->
         <p class="post_user_category btn-info" style="border-radius:5px;">{{$sub_category->sub_category}}</p>
+        @endif
         @endforeach
         <div class="d-flex post_status">
           <div class="mr-5">

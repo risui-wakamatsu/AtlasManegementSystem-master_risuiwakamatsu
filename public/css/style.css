@@ -268,13 +268,18 @@ li {
 .reserve_users_area {
   display: flex;
   flex-wrap: wrap;
-  width: 800px;
+  width: 900px;
   margin: 10px auto;
   height: 80vh;
   overflow: scroll;
   padding: 10px;
-  background: #FFF;
+  background: none;
   border-radius: 5px;
+}
+
+.reserve_users_area::-webkit-scrollbar {
+  display: none;
+  /* スクロールバーを非表示にする */
 }
 
 .reserve_users_area span {
@@ -282,8 +287,12 @@ li {
 }
 
 .one_person {
-  width: 250px;
-  height: 250px;
+  width: 200px;
+  height: 200px;
+  margin: 7px;
+  border-radius: 5px;
+  background: #FFF;
+  padding: 3px 0 0 15px;
 }
 
 .search_conditions span {
@@ -296,7 +305,7 @@ li {
 }
 
 .subject_edit_btn {
-  font-size: 12px;
+  font-size: 16px;
   color: #0000FF;
   cursor: pointer;
 }
@@ -425,4 +434,43 @@ input[type="radio"] {
   margin-left: 75px;
   margin-top: 15px;
   background: none;
+}
+
+.free_word {
+  border: none;
+  /* 枠のスタイルと色を指定 */
+  border-radius: 5px;
+  /* 枠の角を丸くする */
+  background-color: #dcdcdc;
+  /* 背景色 */
+  color: #333;
+  /* テキストの色 */
+  padding: 6px 12px;
+  /* 内側の余白 */
+}
+
+/* プレースホルダーのスタイル */
+.free_word::placeholder {
+  color: #999;
+  /* プレースホルダーのテキスト色 */
+}
+
+.reserve_users_item {
+  color: #696969;
+}
+
+.subject_flex {
+  display: flex;
+  /* Flexコンテナとして設定 */
+  align-items: center;
+  /* 垂直方向の中央揃え */
+  margin: 10px 0;
+  /* 各チェックボックス間の余白を追加 */
+  /* 垂直方向に中央揃え */
+  /* 水平方向に中央揃え */
+}
+
+.subject_flex label {
+  margin-left: 10px;
+  /* チェックボックスとラベルの間の間隔を調整 */
 }

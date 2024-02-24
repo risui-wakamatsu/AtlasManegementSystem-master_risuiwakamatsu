@@ -3,51 +3,50 @@
 @extends('layouts.sidebar')
 
 @section('content')
-<p>ユーザー検索</p>
-<div class="search_content w-100 border d-flex">
+<div class="search_content w-100 d-flex">
   <div class="reserve_users_area">
     @foreach($users as $user) <!--ユーザーの一覧が出る-->
     <div class="border one_person">
       <div>
-        <span>ID : </span><span>{{ $user->id }}</span>
+        <span class="reserve_users_item">ID : </span><span>{{ $user->id }}</span>
       </div>
-      <div><span>名前 : </span>
+      <div><span class="reserve_users_item">名前 : </span>
         <a href="{{ route('user.profile', ['id' => $user->id]) }}">
           <span>{{ $user->over_name }}</span>
           <span>{{ $user->under_name }}</span>
         </a>
       </div>
       <div>
-        <span>カナ : </span>
+        <span class="reserve_users_item">カナ : </span>
         <span>({{ $user->over_name_kana }}</span>
         <span>{{ $user->under_name_kana }})</span>
       </div>
       <div>
         @if($user->sex == 1)
-        <span>性別 : </span><span>男</span>
+        <span class="reserve_users_item">性別 : </span><span>男</span>
         @elseif($user->sex == 2)
-        <span>性別 : </span><span>女</span>
+        <span class="reserve_users_item">性別 : </span><span>女</span>
         @else
-        <span>性別 : </span><span>その他</span>
+        <span class="reserve_users_item">性別 : </span><span>その他</span>
         @endif
       </div>
       <div>
-        <span>生年月日 : </span><span>{{ $user->birth_day }}</span>
+        <span class="reserve_users_item">生年月日 : </span><span>{{ $user->birth_day }}</span>
       </div>
       <div>
         @if($user->role == 1)
-        <span>権限 : </span><span>教師(国語)</span>
+        <span class="reserve_users_item">権限 : </span><span>教師(国語)</span>
         @elseif($user->role == 2)
-        <span>権限 : </span><span>教師(数学)</span>
+        <span class="reserve_users_item">権限 : </span><span>教師(数学)</span>
         @elseif($user->role == 3)
-        <span>権限 : </span><span>講師(英語)</span>
+        <span class="reserve_users_item">権限 : </span><span>講師(英語)</span>
         @else
-        <span>権限 : </span><span>生徒</span>
+        <span class="reserve_users_item">権限 : </span><span>生徒</span>
         @endif
       </div>
       <div>
+        <span class="reserve_users_item">選択科目 :</span>
         @if($user->role == 4)
-        <span>選択科目 :</span>
         @foreach($user->subjects as $subject)
         <span>{{ $subject->subject }}</span>
         @endforeach
@@ -60,7 +59,7 @@
   <div class="search_area w-25 border-none">
     <div class="">
       <div>
-        <label class="search"></label>
+        <label class="search">検索</label>
         <input type="text" class="free_word" name="keyword" placeholder="キーワードを検索" form="userSearchRequest">
       </div>
       <div>

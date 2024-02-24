@@ -59,8 +59,10 @@ class PostsController extends Controller
     //投稿詳細画面
     public function postDetail($post_id)
     {
+        $categories = MainCategory::get();
+        $sub_categories = SubCategory::get();
         $post = Post::with('user', 'postComments')->findOrFail($post_id);
-        return view('authenticated.bulletinboard.post_detail', compact('post'));
+        return view('authenticated.bulletinboard.post_detail', compact('post', 'sub_categories'));
     }
 
     //投稿画面

@@ -8,6 +8,11 @@
       <div class="p-3">
         <div class="detail_inner_head">
           <div>
+            @foreach($sub_categories as $sub_category)
+            @if($post->subCategories->contains('id', $sub_category->id)) <!--$postに関するサブカテゴリーの情報が中間テーブルに入っているかチェックし、入っていれば対象のサブカテゴリーを表示する-->
+            <p class="post_user_category btn-info" style="border-radius:5px;">{{$sub_category->sub_category}}</p>
+            @endif
+            @endforeach
           </div>
           @if(Auth::user()->id==$post->user_id) <!--idとuser_idがあっている時(自分の投稿)のみ編集と削除の機能が使える-->
           <div class="detail_btn">
