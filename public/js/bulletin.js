@@ -70,15 +70,42 @@ $(function () {
 
 });
 
-//投稿ページのカテゴリー検索スライド
 $(function () {
+  // カテゴリー検索スライドと矢印の動作を制御
   $('.category_conditions').click(function () {
+    // カテゴリー検索スライド
     $(this).find('.category_conditions_inner').slideToggle();
-  });
-});
 
-//掲示板のスライドの矢印
-$(function () {
+    // クリックされた要素に関連する矢印要素を取得
+    var arrowIcon = $(this).find('.arrow-icon');
+
+    // 矢印要素が down クラスを持っているかどうかを確認
+    var isDown = arrowIcon.hasClass('down');
+
+    // すべての矢印要素から down クラスを削除
+    $('.arrow-icon').removeClass('down');
+
+    // クリックされた矢印要素に down クラスを追加（もしくは削除）
+    if (!isDown) {
+      arrowIcon.addClass('down');
+    }
+  });
+
+  // 掲示板のスライドの矢印
+  $('.arrow-icon').click(function () {
+    // クリックされた矢印要素が down クラスを持っているかどうかを確認
+    var isDown = $(this).hasClass('down');
+
+    // すべての矢印要素から down クラスを削除
+    $('.arrow-icon').removeClass('down');
+
+    // クリックされた矢印要素に down クラスを追加（もしくは削除）
+    if (!isDown) {
+      $(this).addClass('down');
+    }
+  });
+
+  // カテゴリー検索スライドの矢印
   $('.arrow-icon').click(function () {
     // クリックされた矢印要素が down クラスを持っているかどうかを確認
     var isDown = $(this).hasClass('down');
