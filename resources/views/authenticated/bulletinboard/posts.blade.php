@@ -3,7 +3,7 @@
 @extends('layouts.sidebar')
 
 @section('content')
-<div class="board_area w-100 border m-auto d-flex">
+<div class="board_area w-100 m-auto d-flex">
   <div class="post_view w-75 mt-5">
     <!--<p class="w-75 m-auto"></p>-->
     @foreach($posts as $post)
@@ -43,19 +43,28 @@
         <input class="btn btn-info" type="submit" value="検索" form="postSearchRequest">
       </div>
       <div style="margin-top:10px">
-        <input type="submit" name="like_posts" class="like_btn btn btn-danger" value="いいねした投稿" form="postSearchRequest">
+        <input type="submit" name="like_posts" class="like_post_btn btn btn-danger" value="いいねした投稿" form="postSearchRequest">
         <input type="submit" name="my_posts" class="my_post_btn btn btn-warning" value="自分の投稿" form="postSearchRequest">
       </div>
       <div class="search_slide">
         <p>カテゴリー検索</p>
         <ul>
           @foreach($categories as $category)
-          <li class="main_categories" category_id="{{ $category->id }}"><span>{{ $category->main_category }}<span></li>
-          @foreach($sub_categories as $sub_category)
-          @if($category->id == $sub_category->main_category_id) <!--メインカテゴリーのidとサブカテゴリーのmain_category_idカラムの値が同じものを表示-->
-          <input type="submit" name="category_word" class="category_btn" value="{{$sub_category->sub_category}}" form="postSearchRequest">
-          @endif
-          @endforeach
+          <li class="main_categories category_conditions border-bottom" category_id="{{ $category->id }}" style="margin-bottom:15px">
+            <span>{{ $category->main_category }}</span>
+            <span class="arrow-icon"></span> <!-- 上向き矢印を追加 -->
+            <ul class="category_conditions_inner" style="display:none;">
+              @foreach($sub_categories as $sub_category)
+              @if($category->id == $sub_category->main_category_id)
+              <li>
+                <div class="border-bottom" style="margin:15px 0 15px 10px">
+                  <input type="submit" name="category_word" class="category_btn" value="{{$sub_category->sub_category}}" form="postSearchRequest">
+                </div>
+              </li>
+              @endif
+              @endforeach
+            </ul>
+          </li>
           @endforeach
         </ul>
       </div>

@@ -10,6 +10,16 @@
 /* body */
 .all_content {
   background: #ECF1F6;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 ul,
@@ -22,13 +32,14 @@ li {
 .sidebar {
   padding: 20px 5px 0 5px;
   width: 185px;
-  height: 100vh;
+
   background-color: #03AAD2;
   font-weight: bold;
 }
 
 .main-container {
   width: 100%;
+  height: 100%;
 }
 
 .sidebar p a {
@@ -239,11 +250,11 @@ li {
 }
 
 .category_btn {
-  font-size: 12px;
-  border-radius: 5px;
+  font-size: 14px;
+  /*border-radius: 5px;*/
   padding: 0 5px;
   border: none;
-  /*background: #999;*/
+  background: none;
   color: #696969;
 }
 
@@ -473,4 +484,33 @@ input[type="radio"] {
 .subject_flex label {
   margin-left: 10px;
   /* チェックボックスとラベルの間の間隔を調整 */
+}
+
+.arrow-icon {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 8px solid black;
+  /* 矢印の色 */
+  margin-left: 5px;
+  /* 矢印とメインカテゴリーの間のスペース */
+  cursor: pointer;
+  /* カーソルをポインターに変更 */
+}
+
+.main_categories {
+  position: relative;
+}
+
+.arrow-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.arrow-icon.down {
+  transform: rotate(180deg);
+  /* 下向きに回転させる */
 }

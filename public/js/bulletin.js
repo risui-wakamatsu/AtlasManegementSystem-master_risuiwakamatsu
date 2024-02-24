@@ -69,3 +69,26 @@ $(function () {
   });
 
 });
+
+//投稿ページのカテゴリー検索スライド
+$(function () {
+  $('.category_conditions').click(function () {
+    $(this).find('.category_conditions_inner').slideToggle();
+  });
+});
+
+//掲示板のスライドの矢印
+$(function () {
+  $('.arrow-icon').click(function () {
+    // クリックされた矢印要素が down クラスを持っているかどうかを確認
+    var isDown = $(this).hasClass('down');
+
+    // すべての矢印要素から down クラスを削除
+    $('.arrow-icon').removeClass('down');
+
+    // クリックされた矢印要素に down クラスを追加（もしくは削除）
+    if (!isDown) {
+      $(this).addClass('down');
+    }
+  });
+});

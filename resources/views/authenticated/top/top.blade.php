@@ -1,7 +1,7 @@
 @extends('layouts.sidebar')
 
 @section('content')
-<div class="vh-100 border">
+<div class="vh-100">
   <div class="top_area w-75 m-auto pt-5">
     <p>マイページ</p>
     <div class="user_status p-3">
